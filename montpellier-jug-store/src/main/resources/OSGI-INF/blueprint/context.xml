@@ -1,0 +1,113 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+  <reference id="jug" interface="javax.sql.DataSource"/>
+
+  <bean id="flyway" class="org.montpellierjug.store.FlyWayApply" init-method="init">
+    <property name="dataSource" ref="jug"/>
+  </bean>
+
+  <bean id="transactionManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager" depends-on="flyway">
+    <property name="dataSource" ref="jug"/>
+  </bean>
+
+  <service id="dataSourceTransactionManager" ref="transactionManager" interface="org.springframework.transaction.support.ResourceTransactionManager" />
+
+  <!-- Configure jOOQ's ConnectionProvider to use Spring's TransactionAwareDataSourceProxy,
+       which can dynamically discover the transaction context -->
+  <bean id="transactionAwareDataSource"
+        class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+    <argument ref="jug"/>
+  </bean>
+
+  <service id="geosudTransactionAwareDataSource" ref="transactionAwareDataSource" interface="javax.sql.DataSource" />
+
+
+  <bean class="org.jooq.impl.DataSourceConnectionProvider" id="connectionProvider">
+    <argument ref="transactionAwareDataSource"/>
+  </bean>
+
+  <!-- Configure the DSL object, optionally overriding jOOQ Exceptions with Spring Exceptions -->
+  <bean id="dsl" class="org.jooq.impl.DefaultDSLContext">
+    <argument ref="config"/>
+  </bean>
+
+  <bean id="exceptionTranslator" class="org.montpellierjug.store.ExceptionHandler"/>
+
+  <!-- Invoking an internal, package-private constructor for the example
+       Implement your own Configuration for more reliable behaviour -->
+  <bean class="org.jooq.impl.DefaultConfiguration" id="config">
+    <property name="SQLDialect">
+      <value type="org.jooq.SQLDialect">POSTGRES</value>
+    </property>
+    <property name="connectionProvider" ref="connectionProvider"/>
+    <property name="executeListenerProvider">
+      <array>
+        <bean class="org.jooq.impl.DefaultExecuteListenerProvider">
+          <argument index="0" ref="exceptionTranslator"/>
+        </bean>
+      </array>
+    </property>
+  </bean>
+
+  <service ref="dsl" interface="org.jooq.DSLContext"/>
+
+  <bean id="answerDao" class="org.montpellierjug.store.jooq.tables.daos.AnswerDao">
+    <argument index="0" ref="config"/>
+  </bean>
+
+  <bean id="eventDao" class="org.montpellierjug.store.jooq.tables.daos.EventDao">
+    <argument index="0" ref="config"/>
+  </bean>
+
+  <bean id="eventPartnerDao" class="org.montpellierjug.store.jooq.tables.daos.EventpartnerDao">
+    <argument index="0" ref="config"/>
+  </bean>
+
+  <bean id="newsDao" class="org.montpellierjug.store.jooq.tables.daos.NewsDao">
+    <argument index="0" ref="config"/>
+  </bean>
+
+  <bean id="pollDao" class="org.montpellierjug.store.jooq.tables.daos.PollDao">
+    <argument index="0" ref="config"/>
+  </bean>
+
+  <bean id="speakerDao" class="org.montpellierjug.store.jooq.tables.daos.SpeakerDao">
+    <argument index="0" ref="config"/>
+  </bean>
+
+  <bean id="tagDao" class="org.montpellierjug.store.jooq.tables.daos.TagDao">
+    <argument index="0" ref="config"/>
+  </bean>
+
+  <bean id="talkDao" class="org.montpellierjug.store.jooq.tables.daos.TalkDao">
+    <argument index="0" ref="config"/>
+  </bean>
+  <bean id="userDao" class="org.montpellierjug.store.jooq.tables.daos.UserDao">
+    <argument index="0" ref="config"/>
+  </bean>
+
+  <bean id="yearpartnerDao" class="org.montpellierjug.store.jooq.tables.daos.YearpartnerDao">
+    <argument index="0" ref="config"/>
+  </bean>
+
+
+  <bean id="participationDao" class="org.montpellierjug.store.jooq.tables.daos.ParticipationDao">
+    <argument index="0" ref="config"/>
+  </bean>
+
+
+  <service ref="answerDao" interface="org.montpellierjug.store.jooq.tables.daos.AnswerDao" />
+  <service ref="eventDao" interface="org.montpellierjug.store.jooq.tables.daos.EventDao" />
+  <service ref="eventPartnerDao" interface="org.montpellierjug.store.jooq.tables.daos.EventpartnerDao" />
+  <service ref="newsDao" interface="org.montpellierjug.store.jooq.tables.daos.NewsDao" />
+  <service ref="pollDao" interface="org.montpellierjug.store.jooq.tables.daos.PollDao" />
+  <service ref="speakerDao" interface="org.montpellierjug.store.jooq.tables.daos.SpeakerDao" />
+  <service ref="tagDao" interface="org.montpellierjug.store.jooq.tables.daos.TagDao" />
+  <service ref="talkDao" interface="org.montpellierjug.store.jooq.tables.daos.TalkDao" />
+  <service ref="userDao" interface="org.montpellierjug.store.jooq.tables.daos.UserDao" />
+  <service ref="yearpartnerDao" interface="org.montpellierjug.store.jooq.tables.daos.YearpartnerDao" />
+  <service ref="participationDao" interface="org.montpellierjug.store.jooq.tables.daos.ParticipationDao" />
+
+
+</blueprint>
