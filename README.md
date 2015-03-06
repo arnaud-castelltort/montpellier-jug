@@ -8,13 +8,13 @@ Runtime: A posgresql database named "jug" must be accessible for user jug / sofr
 
 Build time (jooq code generation): : A posgresql database named "jugbuild" must be accessible for user jug / sofree
 
-
+## Mvn installation
 
 **You need to run this app with java 8!**
 
 ```bash
 > mvn install
-cd montpellier-jug-wisdom
+> cd montpellier-jug-wisdom
 > mvn wisdom:run
 ```
 
