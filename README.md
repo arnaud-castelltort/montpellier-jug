@@ -20,7 +20,10 @@ cd montpellier-jug-wisdom
 
 jugbuild database is reset on each build.
 
-   mvn clean install -Pcleandb will reset the alldatabase
+```bash
+> mvn clean install -Pcleandb will reset the alldatabase
+```
+
 
 Then open [http://localhost:9000/](http://localhost:9000/)
 
