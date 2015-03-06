@@ -1,9 +1,15 @@
 package org.montpellierjug.store;
 
+import org.jooq.Configuration;
+import org.jooq.ConnectionProvider;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
+import org.jooq.exception.DataAccessException;
 import org.jooq.impl.DSL;
+import org.jooq.impl.DefaultConfiguration;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,23 +17,34 @@ import java.sql.DriverManager;
 /**
  * Created by chelebithil on 06/03/15.
  */
-public class DaoTestCase {
+public abstract  class DaoTestCase {
 
-    @Test
-    public void testInsertTags() {
+    static final Logger LOGGER = LoggerFactory.getLogger(DaoTestCase.class);
+
+    public void jooq(JooqCommand command) {
         String userName = "jug";
         String password = "jug";
         String url = "jdbc:postgresql:jugbuild";
 
-        // Connection is the only JDBC resource that we need
-        // PreparedStatement and ResultSet are handled by jOOQ, internally
         try (Connection conn = DriverManager.getConnection(url, userName, password)) {
-            DSLContext create = DSL.using(conn, SQLDialect.POSTGRES);
+            Configuration conf = new DefaultConfiguration();
+            conf.set(new ConnectionProvider() {
+                @Override
+                public Connection acquire() throws DataAccessException {
+                    return conn;
+                }
+
+                @Override
+                public void release(Connection connection) throws DataAccessException {
+
+                }
+            });
+
+            command.run(conf);
         }
 
-        // For the sake of this tutorial, let's keep exception handling simple
         catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
