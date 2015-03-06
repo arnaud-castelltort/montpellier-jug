@@ -128,15 +128,6 @@
       <version>${project.version}</version>
     </dependency>
 
-<!--
-    <dependency>
-      <groupId>com.geomatys.flywaydb</groupId>
-      <artifactId>geomatys-flywaydb-patch</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
--->
-
-
     <dependency>
       <groupId>org.wisdom-framework</groupId>
       <artifactId>wisdom-jdbc-datasources</artifactId>
@@ -193,9 +184,9 @@
         <!-- Manage the plugin's dependency. In this example, we'll use a PostgreSQL database -->
         <dependencies>
           <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.186</version>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.3-1101-jdbc41</version>
           </dependency>
         </dependencies>
 
@@ -205,8 +196,8 @@
 
           <!-- JDBC connection parameters -->
           <jdbc>
-            <driver>org.h2.Driver</driver>
-            <url>jdbc:h2:./target/jugdb</url>
+            <driver>org.postgresql.Driver</driver>
+            <url>jdbc:postgresql:jugbuild</url>
             <user>jug</user>
             <password>jug</password>
           </jdbc>
@@ -215,7 +206,7 @@
           <generator>
             <name>org.jooq.util.DefaultGenerator</name>
             <database>
-              <name>org.jooq.util.h2.H2Database</name>
+              <name>org.jooq.util.postgres.PostgresDatabase</name>
               <includes>.*</includes>
               <inputSchema>jug</inputSchema>
             </database>
