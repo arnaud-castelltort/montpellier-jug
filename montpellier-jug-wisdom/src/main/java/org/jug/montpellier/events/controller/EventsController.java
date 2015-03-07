@@ -46,7 +46,7 @@ public class EventsController extends JugController {
 
     @Route(method = HttpMethod.GET, uri = "/")
     public Result events() {
-        return ok(render(template, new ParameterBuilder().add("cartridges", cartridgeSupport.cartridges()).build()));
+        return ok(render(template, new ParameterBuilder().setCartridges(cartridgeSupport).build()));
     }
 
 }

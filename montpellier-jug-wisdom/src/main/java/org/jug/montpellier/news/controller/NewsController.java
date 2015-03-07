@@ -46,14 +46,13 @@ public class NewsController extends JugController {
     
     List<News> buildNews() {
         return Arrays.asList(
-            new News("Nouveau site", "Trop bien ;)"),
-            new News()
+            new News("Nouveau site", "Trop bien ;)")
         );
     }
     
     @Route(method = HttpMethod.GET, uri = "/")
     public Result news() {
-        return ok(render(template, new ParameterBuilder().add("news", buildNews()).add("cartridges", cartridgeSupport.cartridges()).build()));
+        return ok(render(template, new ParameterBuilder().add("news", buildNews()).setCartridges(cartridgeSupport).build()));
     }
 
 }
