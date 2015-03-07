@@ -19,17 +19,11 @@
  */
 package sample;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
-import model.News;
 
 import org.apache.felix.ipojo.annotations.Requires;
-import org.jug.montpellier.core.api.CartridgeConsumer;
-import org.jug.montpellier.core.api.CartridgeService;
+import org.jug.montpellier.core.api.CartridgeSupport;
 import org.wisdom.api.DefaultController;
 import org.wisdom.api.annotations.Controller;
 import org.wisdom.api.annotations.Route;
@@ -45,7 +39,7 @@ import org.wisdom.api.templates.Template;
 public class WelcomeController extends DefaultController {
 
     @Requires
-    CartridgeConsumer cartridgeConsumer;
+    CartridgeSupport cartridgeSupport;
 
     /**
      * Injects a template named 'welcome'.
@@ -63,30 +57,8 @@ public class WelcomeController extends DefaultController {
     public Result welcome() {
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("welcome", "Welcome to Wisdom Framework!");
-        parameters.put("cartridges", cartridgeConsumer.cartridges());
+        parameters.put("cartridges", cartridgeSupport.cartridges());
         return ok(render(welcome, parameters));
-    }
-    
-    /**
-     * NEWS PART
-     */
-    
-    @View("news")
-    Template news;
-    
-    List<News> buildNews() {
-        return Arrays.asList(
-            new News("Nouveau site", "Trop bien ;)"),
-            new News()
-        );
-    }
-    
-    @Route(method = HttpMethod.GET, uri = "/news")
-    public Result news() {
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("news", buildNews());
-        parameters.put("cartridges", cartridgeConsumer.cartridges());
-        return ok(render(news, parameters));
     }
 
 }

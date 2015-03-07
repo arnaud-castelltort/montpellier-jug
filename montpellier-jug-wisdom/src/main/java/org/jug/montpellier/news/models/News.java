@@ -1,4 +1,4 @@
-package model;
+package org.jug.montpellier.news.models;
 
 import java.util.Calendar;
 import java.util.Date;

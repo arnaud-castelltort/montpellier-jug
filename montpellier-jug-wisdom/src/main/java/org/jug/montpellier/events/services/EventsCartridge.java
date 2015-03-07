@@ -5,23 +5,29 @@ import org.apache.felix.ipojo.annotations.Instantiate;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jug.montpellier.core.api.Cartridge;
-import org.jug.montpellier.core.api.CartridgeService;
 import org.jug.montpellier.events.controller.EventsController;
-import org.jug.montpellier.news.controller.NewsController;
 import org.wisdom.api.router.Router;
 
 @Component
-@Provides(specifications = CartridgeService.class)
+@Provides(specifications = Cartridge.class)
 @Instantiate
-public class EventsCartridge implements CartridgeService {
+public class EventsCartridge implements Cartridge {
 
     @Requires
     private Router router;
 
-    private Cartridge definition = new Cartridge("Events", router.getReverseRouteFor(EventsController.class, "news"));
+    @Override
+    public String label() {
+        return "Events";
+    }
 
     @Override
-    public Cartridge cartridge() {
-        return definition;
+    public String routeUri() {
+        return router.getReverseRouteFor(EventsController.class, "events");
+    }
+
+    @Override
+    public int position() {
+        return 1;
     }
 }
