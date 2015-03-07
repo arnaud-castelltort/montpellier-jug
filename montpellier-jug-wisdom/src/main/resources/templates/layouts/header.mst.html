@@ -19,7 +19,10 @@
     <a id="logo" href="@routes.Application.index()"> <span>Montpellier Jug</span></a>
     <nav id="menu">
         <ul>
-            <li id="nav-home"><a href="/">Home</a></li>
+            {{#cartridges}}
+                <li id="nav-home"><a href="{{route}}">{{label}}</a></li>
+            {{/cartridges}}
+            <li id="nav-home"><a href="/">Home2</a></li>
             <li id="nav-new"><a href="/news">News</a></li>
             <li id="nav-event"><a href="@routes.Application.event(t.event.id.get)">Events</a></li>
             <!--					<li><a href="#">Publications</a></li>-->

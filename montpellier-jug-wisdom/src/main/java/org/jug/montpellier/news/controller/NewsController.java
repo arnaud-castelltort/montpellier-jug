@@ -17,60 +17,33 @@
  * limitations under the License.
  * #L%
  */
-package sample;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+package org.jug.montpellier.news.controller;
 
 import model.News;
-
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jug.montpellier.core.api.CartridgeConsumer;
-import org.jug.montpellier.core.api.CartridgeService;
+import org.jug.montpellier.core.controller.JugController;
 import org.wisdom.api.DefaultController;
 import org.wisdom.api.annotations.Controller;
+import org.wisdom.api.annotations.Path;
 import org.wisdom.api.annotations.Route;
 import org.wisdom.api.annotations.View;
 import org.wisdom.api.http.HttpMethod;
 import org.wisdom.api.http.Result;
 import org.wisdom.api.templates.Template;
 
-/**
- * Your first Wisdom Controller.
- */
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Controller
-public class WelcomeController extends DefaultController {
+@Path("/news")
+public class NewsController extends JugController {
 
     @Requires
     CartridgeConsumer cartridgeConsumer;
 
-    /**
-     * Injects a template named 'welcome'.
-     */
-    @View("welcome")
-    Template welcome;
-    
-    /**
-     * The action method returning the welcome page. It handles
-     * HTTP GET request on the "/" URL.
-     *
-     * @return the welcome page
-     */
-    @Route(method = HttpMethod.GET, uri = "/")
-    public Result welcome() {
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("welcome", "Welcome to Wisdom Framework!");
-        parameters.put("cartridges", cartridgeConsumer.cartridges());
-        return ok(render(welcome, parameters));
-    }
-    
-    /**
-     * NEWS PART
-     */
-    
     @View("news")
     Template news;
     
@@ -81,12 +54,9 @@ public class WelcomeController extends DefaultController {
         );
     }
     
-    @Route(method = HttpMethod.GET, uri = "/news")
+    @Route(method = HttpMethod.GET, uri = "/")
     public Result news() {
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("news", buildNews());
-        parameters.put("cartridges", cartridgeConsumer.cartridges());
-        return ok(render(news, parameters));
+        return ok(render(news, new ParameterBuilder().add("news", buildNews()).add("cartridges",cartridgeConsumer.cartridges()).build()));
     }
 
 }
