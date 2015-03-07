@@ -15,5 +15,9 @@ public class News {
 		this.title = title;
 		this.content = content;
 	}
+
+    public String toString() {
+        return "News :: " + this.title + " => " + this.content + "\n\t the: " + date;
+    }
 	
 }
