@@ -1,4 +1,4 @@
-package model;
+package org.jug.montpellier.news.models;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -19,5 +19,4 @@ public class News {
     public String toString() {
         return "News :: " + this.title + " => " + this.content + "\n\t the: " + date;
     }
-	
 }

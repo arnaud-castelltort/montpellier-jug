@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery.min.js"></script>
     <script src="/libs/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/assets/main.css" media="screen"/>
+    <link rel="stylesheet" href="/assets/stylesheets/main.css" media="screen"/>
 
     <title layout:title-pattern="$DECORATOR_TITLE :: $CONTENT_TITLE">Montpellier JUG Welcome</title>
 </head>
@@ -38,7 +38,10 @@
     <a id="logo" href="@routes.Application.index()"> <span>Montpellier Jug</span></a>
     <nav id="menu">
         <ul>
-            <li id="nav-home"><a href="/">Home</a></li>
+            {{#cartridges}}
+            <li id="nav-home"><a href="/taix">Taix {{label}}</a></li>
+            {{/cartridges}}
+            <li id="nav-home"><a href="/">Home2</a></li>
             <li id="nav-new"><a href="/news">News</a></li>
             <li id="nav-event"><a href="@routes.Application.event(t.event.id.get)">Events</a></li>
             <!--					<li><a href="#">Publications</a></li>-->

@@ -19,27 +19,23 @@
  */
 package sample;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import model.News;
+import java.util.*;
 
 import org.apache.felix.ipojo.annotations.Requires;
-import org.wisdom.api.DefaultController;
+import org.jug.montpellier.core.api.CartridgeSupport;
+import org.jug.montpellier.core.controller.JugController;
+import org.jug.montpellier.news.models.News;
 import org.wisdom.api.annotations.*;
 import org.wisdom.api.http.HttpMethod;
 import org.wisdom.api.http.Result;
 import org.wisdom.api.templates.Template;
 import services.PropertiesForm;
 
-/**
- * Your first Wisdom Controller.
- */
 @Controller
-public class WelcomeController extends DefaultController {
+public class WelcomeController extends JugController {
+
+    @Requires
+    CartridgeSupport cartridgeSupport;
 
     /**
      * Injects a template named 'welcome'.
@@ -55,25 +51,20 @@ public class WelcomeController extends DefaultController {
      */
     @Route(method = HttpMethod.GET, uri = "/")
     public Result welcome() {
-        return ok(render(welcome, "welcome", "Welcome to Wisdom Framework!"));
+        return ok(render(welcome, new ParameterBuilder().add("welcome","Welcome to Wisdom Framework").setCartridges(cartridgeSupport).build()));
     }
-    
+
     /**
-     * NEWS PART
+     * NEWS PART => To be move into the right controller
      */
-    
+
     @View("news")
     Template news;
 
     List<News> news() {
         return Arrays.asList(
-            new News("Nouveau site", "Trop bien ;)")
+                new News("Nouveau site", "Trop trop bien ;)")
         );
-    }
-    
-    @Route(method = HttpMethod.GET, uri = "/news")
-    public Result defaultView() {
-        return ok(render(news, "news", news()));
     }
 
     /**
