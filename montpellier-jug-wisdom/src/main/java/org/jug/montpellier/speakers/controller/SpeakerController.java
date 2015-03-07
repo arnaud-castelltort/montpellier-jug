@@ -1,4 +1,4 @@
-package controller;
+package org.jug.montpellier.speakers.controller;
 
 import org.apache.felix.ipojo.annotations.Requires;
 import org.montpellierjug.store.jooq.tables.daos.SpeakerDao;

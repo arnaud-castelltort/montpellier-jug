@@ -19,10 +19,15 @@
  */
 package sample;
 
+import org.jug.montpellier.core.api.Cartridge;
+import org.jug.montpellier.core.api.CartridgeSupport;
 import org.junit.Test;
 import org.wisdom.api.http.Result;
 import org.wisdom.api.http.Status;
 import org.wisdom.api.templates.Template;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -46,6 +51,12 @@ public class UnitTest {
         // Use a mock to simulate the template.
         // You can do this for every service and template your controller is using.
         controller.welcome = mock(Template.class);
+        controller.cartridgeSupport = new CartridgeSupport() {
+            @Override
+            public List<Cartridge> cartridges() {
+                return new ArrayList<>();
+            }
+        };
         Result result = controller.welcome();
         assertThat(result.getStatusCode()).isEqualTo(Status.OK);
     }
