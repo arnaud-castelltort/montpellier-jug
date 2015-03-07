@@ -21,9 +21,10 @@ Build time (jooq code generation): : A posgresql database named "jugbuild" must 
 jugbuild database is reset on each build.
 
 ```bash
-> mvn clean install -Pcleandb will reset the alldatabase
+> mvn clean install -Pcleandb
 ```
 
+will reset the alldatabase
 
 Then open [http://localhost:9000/](http://localhost:9000/)
 
