@@ -5,23 +5,25 @@ import org.apache.felix.ipojo.annotations.Instantiate;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jug.montpellier.core.api.Cartridge;
-import org.jug.montpellier.core.api.CartridgeConsumer;
-import org.jug.montpellier.core.api.CartridgeService;
+import org.jug.montpellier.core.api.CartridgeSupport;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
-@Provides(specifications = CartridgeConsumer.class)
+@Provides(specifications = CartridgeSupport.class)
 @Instantiate
-public class CartridageServiceImpl implements CartridgeConsumer {
+public class CartridageServiceImpl implements CartridgeSupport {
 
-    @Requires(specification = CartridgeService.class)
-    List<CartridgeService> cartridgeServices;
+    @Requires(specification = Cartridge.class)
+    List<Cartridge> cartridges;
 
 
     @Override
     public List<Cartridge> cartridges() {
-        return cartridgeServices.stream().map((c) -> c.cartridge()).collect(Collectors.toList());
+        List<Cartridge> clone = new ArrayList<>(cartridges);
+        clone.sort((Cartridge cartridge1, Cartridge cartridge2) -> Integer.compare(cartridge1.position(), cartridge2.position()));
+        return Collections.unmodifiableList(clone);
     }
 }

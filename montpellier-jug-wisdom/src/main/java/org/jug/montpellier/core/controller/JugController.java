@@ -1,11 +1,7 @@
 package org.jug.montpellier.core.controller;
 
-import org.apache.felix.ipojo.annotations.Component;
-import org.apache.felix.ipojo.annotations.Requires;
-import org.jug.montpellier.core.api.CartridgeConsumer;
 import org.wisdom.api.DefaultController;
 
-import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.Map;
 

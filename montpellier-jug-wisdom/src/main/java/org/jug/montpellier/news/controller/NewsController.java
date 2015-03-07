@@ -19,11 +19,10 @@
  */
 package org.jug.montpellier.news.controller;
 
-import model.News;
+import org.jug.montpellier.news.models.News;
 import org.apache.felix.ipojo.annotations.Requires;
-import org.jug.montpellier.core.api.CartridgeConsumer;
+import org.jug.montpellier.core.api.CartridgeSupport;
 import org.jug.montpellier.core.controller.JugController;
-import org.wisdom.api.DefaultController;
 import org.wisdom.api.annotations.Controller;
 import org.wisdom.api.annotations.Path;
 import org.wisdom.api.annotations.Route;
@@ -33,19 +32,17 @@ import org.wisdom.api.http.Result;
 import org.wisdom.api.templates.Template;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @Path("/news")
 public class NewsController extends JugController {
 
     @Requires
-    CartridgeConsumer cartridgeConsumer;
+    CartridgeSupport cartridgeSupport;
 
     @View("news")
-    Template news;
+    Template template;
     
     List<News> buildNews() {
         return Arrays.asList(
@@ -56,7 +53,7 @@ public class NewsController extends JugController {
     
     @Route(method = HttpMethod.GET, uri = "/")
     public Result news() {
-        return ok(render(news, new ParameterBuilder().add("news", buildNews()).add("cartridges",cartridgeConsumer.cartridges()).build()));
+        return ok(render(template, new ParameterBuilder().add("news", buildNews()).add("cartridges", cartridgeSupport.cartridges()).build()));
     }
 
 }

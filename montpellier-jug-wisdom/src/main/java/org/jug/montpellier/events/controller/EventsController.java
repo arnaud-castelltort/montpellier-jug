@@ -19,9 +19,9 @@
  */
 package org.jug.montpellier.events.controller;
 
-import model.News;
 import org.apache.felix.ipojo.annotations.Requires;
-import org.jug.montpellier.core.api.CartridgeConsumer;
+import org.jug.montpellier.core.api.CartridgeSupport;
+import org.jug.montpellier.core.controller.JugController;
 import org.wisdom.api.DefaultController;
 import org.wisdom.api.annotations.Controller;
 import org.wisdom.api.annotations.Path;
@@ -31,26 +31,22 @@ import org.wisdom.api.http.HttpMethod;
 import org.wisdom.api.http.Result;
 import org.wisdom.api.templates.Template;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
 @Path("/events")
-public class EventsController extends DefaultController {
+public class EventsController extends JugController {
 
     @Requires
-    CartridgeConsumer cartridgeConsumer;
+    CartridgeSupport cartridgeSupport;
 
     @View("events")
     Template template;
 
     @Route(method = HttpMethod.GET, uri = "/")
-    public Result news() {
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("cartridges", cartridgeConsumer.cartridges());
-        return ok(render(template, parameters));
+    public Result events() {
+        return ok(render(template, new ParameterBuilder().add("cartridges", cartridgeSupport.cartridges()).build()));
     }
 
 }

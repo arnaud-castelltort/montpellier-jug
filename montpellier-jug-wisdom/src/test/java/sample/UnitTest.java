@@ -20,7 +20,7 @@
 package sample;
 
 import org.jug.montpellier.core.api.Cartridge;
-import org.jug.montpellier.core.api.CartridgeConsumer;
+import org.jug.montpellier.core.api.CartridgeSupport;
 import org.junit.Test;
 import org.wisdom.api.http.Result;
 import org.wisdom.api.http.Status;
@@ -51,7 +51,7 @@ public class UnitTest {
         // Use a mock to simulate the template.
         // You can do this for every service and template your controller is using.
         controller.welcome = mock(Template.class);
-        controller.cartridgeConsumer = new CartridgeConsumer() {
+        controller.cartridgeSupport = new CartridgeSupport() {
             @Override
             public List<Cartridge> cartridges() {
                 return new ArrayList<>();
