@@ -12,7 +12,7 @@ public class JugController extends DefaultController {
 
     public static final String CARTRIDGES = "cartridges";
 
-    public class ParameterBuilder {
+    public static class ParameterBuilder {
 
         private Map<String, Object> parameters = new HashMap<String, Object>();
 

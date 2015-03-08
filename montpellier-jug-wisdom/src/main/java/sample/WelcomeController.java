@@ -24,6 +24,7 @@ import java.util.*;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jug.montpellier.core.api.CartridgeSupport;
 import org.jug.montpellier.core.controller.JugController;
+import org.jug.montpellier.core.forms.annotations.Form;
 import org.jug.montpellier.news.models.News;
 import org.wisdom.api.annotations.*;
 import org.wisdom.api.http.HttpMethod;
@@ -71,7 +72,7 @@ public class WelcomeController extends JugController {
      * FORM NEWS PART
      */
 
-    @View("layouts/form")
+    @View("form")
     Template formTemplate;
 
     @Requires
@@ -80,6 +81,18 @@ public class WelcomeController extends JugController {
     @Route(method = HttpMethod.GET, uri = "/addnews")
     public Result addNewsGet() {
         return ok(render(formTemplate, "properties", propertiesForm.get(News.class), "urlSubmit", "/addnews"));
+    }
+
+    @Route(method = HttpMethod.GET, uri = "/addnews2")
+    @Form
+    public Result addNewsGet2() {
+        return ok(new News());
+    }
+    @Route(method = HttpMethod.POST, uri = "/addnews2")
+    public Result addNewsPost2(@Body News myNews) {
+        List<News> allNews = new ArrayList<News>(news());
+        allNews.add(myNews);
+        return ok(render(news, "news", allNews));
     }
 
     @Route(method = HttpMethod.POST, uri = "/addnews")
@@ -91,6 +104,7 @@ public class WelcomeController extends JugController {
 
     @Route(method = HttpMethod.GET, uri = "/modnews/{id}")
     public Result modNewsGet(@Parameter("id") int id) {
+
         return ok(render(formTemplate, "properties", propertiesForm.get(news().get(id)), "urlSubmit", "/modnews/" + id));
     }
 
