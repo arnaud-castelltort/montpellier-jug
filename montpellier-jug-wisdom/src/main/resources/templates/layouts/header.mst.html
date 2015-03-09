@@ -8,26 +8,20 @@
     <meta name="author" content="The Wisdom Framework Team"/>
     <link rel="shortcut icon" href="/assets/images/owl-small.png"/>
 
-    <script src="/libs/jquery.min.js"></script>
-    <script src="/libs/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/main.css" media="screen"/>
+    <link rel="stylesheet" href="/assets/admin.css" media="screen"/>
 
     <title layout:title-pattern="$DECORATOR_TITLE :: $CONTENT_TITLE">Montpellier JUG Welcome</title>
 </head>
 <body>
 <div id="wrapper">
-    <a id="logo" href="@routes.Application.index()"> <span>Montpellier Jug</span></a>
+    <a id="logo" href="/"> <span>Montpellier Jug</span></a>
     <nav id="menu">
         <ul>
             {{#cartridges}}
                 <li id="nav-home"><a href="{{routeUri}}">{{label}}</a></li>
             {{/cartridges}}
-            <li id="nav-home"><a href="/">Home</a></li>
-            <li id="nav-new"><a href="/news">News</a></li>
-            <li id="nav-event"><a href="@routes.Application.event(t.event.id.get)">Events</a></li>
-            <!--					<li><a href="#">Publications</a></li>-->
-            <li id="nav-about"><a href="@routes.Application.about()">A propos</a></li>
-            <li id="nav-members"><a href="@routes.Application.members()">Membres</a></li>
-            <li id="nav-polls"><a href="@routes.Application.polls()">Sondages</a></li>
         </ul>
     </nav>
+</div>
