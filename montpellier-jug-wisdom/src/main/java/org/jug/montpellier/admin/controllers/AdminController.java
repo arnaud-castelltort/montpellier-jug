@@ -35,16 +35,11 @@ import org.wisdom.api.templates.Template;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 @Controller
 @Path("/admin")
 public class AdminController extends JugController {
-
-    @Requires
-    CartridgeSupport cartridgeSupport;
 
     @View("admin")
     Template template;
@@ -52,9 +47,13 @@ public class AdminController extends JugController {
     @Requires
     PropertySheet propertySheet;
 
+    public AdminController(@Requires CartridgeSupport cartridgeSupport) {
+        super(cartridgeSupport);
+    }
+
     @Route(method = HttpMethod.GET, uri = "/")
     public Result home() {
-        return ok(render(template, new ParameterBuilder().setCartridges(cartridgeSupport).build()));
+        return renderRoot(template);
     }
 
     @Route(method = HttpMethod.GET, uri = "/news")
@@ -72,7 +71,7 @@ public class AdminController extends JugController {
         Model1 n = new Model1();
         n.setFirstName("Chrystèle");
         n.setMale(false);
-        return ok(render(template, new ParameterBuilder().add("propertysheet", propertySheet.getContent(this, n)).setCartridges(cartridgeSupport).build()));
+        return renderRoot(template, "propertysheet", propertySheet.getContent(this, n));
         //return ok(propertySheet.getRenderable(this, n));
     }
 }

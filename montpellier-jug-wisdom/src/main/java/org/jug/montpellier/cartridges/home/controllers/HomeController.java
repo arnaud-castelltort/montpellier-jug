@@ -34,15 +34,16 @@ import org.wisdom.api.templates.Template;
 @Path("/")
 public class HomeController extends JugController {
 
-    @Requires
-    CartridgeSupport cartridgeSupport;
-
     @View("home")
     Template template;
 
+    public HomeController(@Requires CartridgeSupport cartridgeSupport) {
+        super(cartridgeSupport);
+    }
+
     @Route(method = HttpMethod.GET, uri = "")
     public Result welcome() {
-        return ok(render(template, new ParameterBuilder().setCartridges(cartridgeSupport).build()));
+        return renderRoot(template);
     }
 
 }
