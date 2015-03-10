@@ -34,15 +34,16 @@ import org.wisdom.api.templates.Template;
 @Path("/events")
 public class EventsController extends JugController {
 
-    @Requires
-    CartridgeSupport cartridgeSupport;
-
     @View("events")
     Template template;
 
+    public EventsController(@Requires CartridgeSupport cartridgeSupport) {
+        super(cartridgeSupport);
+    }
+
     @Route(method = HttpMethod.GET, uri = "/")
     public Result events() {
-        return ok(render(template, new ParameterBuilder().setCartridges(cartridgeSupport).build()));
+        return renderRoot(template);
     }
 
 }
