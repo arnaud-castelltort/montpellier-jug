@@ -24,8 +24,7 @@ import java.util.*;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jug.montpellier.core.api.CartridgeSupport;
 import org.jug.montpellier.core.controller.JugController;
-import org.jug.montpellier.core.forms.annotations.Form;
-import org.jug.montpellier.news.models.News;
+import org.jug.montpellier.cartridges.news.models.News;
 import org.wisdom.api.annotations.*;
 import org.wisdom.api.http.HttpMethod;
 import org.wisdom.api.http.Result;
@@ -33,6 +32,7 @@ import org.wisdom.api.templates.Template;
 import services.PropertiesForm;
 
 @Controller
+@Path("/deprecated")
 public class WelcomeController extends JugController {
 
     @Requires
@@ -84,9 +84,12 @@ public class WelcomeController extends JugController {
     }
 
     @Route(method = HttpMethod.GET, uri = "/addnews2")
-    @Form
     public Result addNewsGet2() {
-        return ok(new News());
+        News news = new News();
+        news.content = "This is a new's content";
+        news.title = "The top news of the world!";
+        news.valid = true;
+        return ok(news);
     }
     @Route(method = HttpMethod.POST, uri = "/addnews2")
     public Result addNewsPost2(@Body News myNews) {
