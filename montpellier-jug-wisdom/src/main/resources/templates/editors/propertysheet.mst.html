@@ -1,0 +1,27 @@
+<div class="col-md-6 propertysheet">
+    <div class="panel panel-default">
+        <div class="panel-heading">Edit News</div>
+        <div class="panel-body">
+            <form class="form-horizontal">
+            {{#properties}}
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-sm-4  control-label" for="{{name}}">{{name}}</label>
+                    <div class="col-sm-6">{{{editor}}}</div>
+                </div>
+                <div class="row">
+                    <span class="col-sm-4"></span>
+                    <div class="col-sm-6 small">{{description}}</div>
+                </div>
+            </div>
+            {{/properties}}
+            </form>
+        </div>
+        <div class="panel-footer">
+            <button class="btn btn-primary" type="button">Save</button>
+            <button class="btn btn-default" type="button">Cancel</button>
+        </div>
+    </div>
+
+</div>
+<div class="col-md-2"></div>
