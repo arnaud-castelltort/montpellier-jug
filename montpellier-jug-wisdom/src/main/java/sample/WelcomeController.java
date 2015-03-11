@@ -35,15 +35,17 @@ import services.PropertiesForm;
 @Path("/deprecated")
 public class WelcomeController extends JugController {
 
-    @Requires
-    CartridgeSupport cartridgeSupport;
 
     /**
      * Injects a template named 'welcome'.
      */
     @View("welcome")
     Template welcome;
-    
+
+    public WelcomeController(@Requires CartridgeSupport cartridgeSupport) {
+        super(cartridgeSupport);
+    }
+
     /**
      * The action method returning the welcome page. It handles
      * HTTP GET request on the "/" URL.
@@ -52,7 +54,7 @@ public class WelcomeController extends JugController {
      */
     @Route(method = HttpMethod.GET, uri = "/")
     public Result welcome() {
-        return ok(render(welcome, new ParameterBuilder().add("welcome","Welcome to Wisdom Framework").setCartridges(cartridgeSupport).build()));
+        return renderRoot(welcome, "welcome","Welcome to Wisdom Framework");
     }
 
     /**
