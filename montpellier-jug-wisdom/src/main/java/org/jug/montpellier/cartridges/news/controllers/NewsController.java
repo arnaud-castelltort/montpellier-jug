@@ -38,12 +38,14 @@ import java.util.List;
 @Path("/news")
 public class NewsController extends JugController {
 
-    @Requires
-    CartridgeSupport cartridgeSupport;
 
     @View("news")
     Template template;
-    
+
+    public NewsController(@Requires CartridgeSupport cartridgeSupport) {
+        super(cartridgeSupport);
+    }
+
     List<News> buildNews() {
         return Arrays.asList(
             new News("Nouveau site", "Trop bien ;)")
@@ -52,7 +54,7 @@ public class NewsController extends JugController {
     
     @Route(method = HttpMethod.GET, uri = "/")
     public Result news() {
-        return ok(render(template, new ParameterBuilder().add("news", buildNews()).setCartridges(cartridgeSupport).build()));
+        return renderRoot(template, "news", buildNews());
     }
 
 }

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 if type -p java; then
     _java=java
 elif [[ -n "$JAVA_HOME" ]] && [[ -x "$JAVA_HOME/bin/java" ]];  then

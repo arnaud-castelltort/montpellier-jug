@@ -47,16 +47,15 @@ public class UnitTest {
      */
     @Test
     public void testWelcome() throws Exception {
-        WelcomeController controller = new WelcomeController();
-        // Use a mock to simulate the template.
-        // You can do this for every service and template your controller is using.
-        controller.welcome = mock(Template.class);
-        controller.cartridgeSupport = new CartridgeSupport() {
+        WelcomeController controller = new WelcomeController(new CartridgeSupport() {
             @Override
             public List<Cartridge> cartridges() {
                 return new ArrayList<>();
             }
-        };
+        });
+        // Use a mock to simulate the template.
+        // You can do this for every service and template your controller is using.
+        controller.welcome = mock(Template.class);
         Result result = controller.welcome();
         assertThat(result.getStatusCode()).isEqualTo(Status.OK);
     }

@@ -1,34 +1,34 @@
 package org.jug.montpellier.core.controller;
 
-import org.jug.montpellier.core.api.Cartridge;
 import org.jug.montpellier.core.api.CartridgeSupport;
 import org.wisdom.api.DefaultController;
+import org.wisdom.api.http.Result;
+import org.wisdom.api.templates.Template;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class JugController extends DefaultController {
 
     public static final String CARTRIDGES = "cartridges";
 
-    public static class ParameterBuilder {
+    public JugController(CartridgeSupport cartridgeSupport) {
+        this.cartridgeSupport = cartridgeSupport;
+    }
 
-        private Map<String, Object> parameters = new HashMap<String, Object>();
+    private final CartridgeSupport cartridgeSupport;
 
-        public ParameterBuilder add(String key, Object value) {
-            parameters.put(key, value);
-            return this;
-        }
+    public Result renderRoot(Template template, Object...params) {
 
-        public ParameterBuilder setCartridges(CartridgeSupport cartridgeSupport) {
-            parameters.put(CARTRIDGES, cartridgeSupport.cartridges());
-            return this;
-        }
+        Map<String, Object> paramsMap = new HashMap<>();
 
-        public Map<String, Object> build() {
-            return parameters;
-        }
+        paramsMap.put(CARTRIDGES, cartridgeSupport.cartridges());
+
+        for (int i = 0; i < params.length; i+=2)
+            paramsMap.put((String)params[i], params[i+1]);
+
+
+        return ok(render(template, paramsMap));
     }
 
 }
