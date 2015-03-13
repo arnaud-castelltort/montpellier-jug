@@ -11,4 +11,5 @@ public class FormProperty {
     public Object editor;
     public String id;
     public String description;
+    public boolean visible = true;
 }
