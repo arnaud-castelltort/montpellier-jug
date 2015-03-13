@@ -50,7 +50,7 @@ public class NewsController extends JugController {
 
     List<News> buildNews() {
         return Arrays.asList(
-            new News("Nouveau site", "Trop bien ;)")
+            new News("Nouveau site", "Trop trop bien ;)")
         );
     }
     
@@ -58,5 +58,5 @@ public class NewsController extends JugController {
     public Result news() {
         return template(template).withParam("news", buildNews()).render();
     }
-
+ 
 }

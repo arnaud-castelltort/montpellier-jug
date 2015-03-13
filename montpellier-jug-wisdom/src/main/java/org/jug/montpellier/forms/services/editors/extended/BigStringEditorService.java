@@ -17,7 +17,7 @@ import org.wisdom.api.templates.Template;
 @Instantiate
 public class BigStringEditorService implements EditorService {
 
-    @View("editors/bigstring")
+    @View("editors/extended/bigstring")
     Template template;
 
 
@@ -28,7 +28,7 @@ public class BigStringEditorService implements EditorService {
 
     @Override
     public Editor createFormEditor(Object model) {
-        StringEditor editor = new StringEditor(template);
+        StringEditor editor = new StringEditor(template, this);
         editor.setValue(model);
         return editor;
     }

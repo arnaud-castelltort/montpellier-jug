@@ -1,6 +1,8 @@
 package org.jug.montpellier.admin.models;
 
 import org.jug.montpellier.forms.services.RenderableProperty;
+import org.jug.montpellier.forms.services.editors.extended.BigStringEditorService;
+import org.jug.montpellier.forms.services.editors.extended.ImageUrlEditorService;
 import org.montpellierjug.store.jooq.tables.interfaces.ISpeaker;
 
 /**
@@ -29,7 +31,7 @@ public class Speaker implements ISpeaker {
     @RenderableProperty(displayLabel = "Email", description = "This email will not be shown")
     private String email;
 
-    @RenderableProperty(displayLabel = "Tell us about you", editorService = "org.jug.montpellier.forms.services.editors.extended.BigStringEditorService")
+    @RenderableProperty(displayLabel = "Tell us about you", editorService = BigStringEditorService.class)
     private String description;
 
     @RenderableProperty(displayLabel = "JUG member")
@@ -38,7 +40,7 @@ public class Speaker implements ISpeaker {
     @RenderableProperty(displayLabel = "Role in the JUG")
     private String memberfct;
 
-    @RenderableProperty(displayLabel = "Photo URL")
+    @RenderableProperty(displayLabel = "Photo URL", editorService = ImageUrlEditorService.class)
     private String photourl;
 
     public static Speaker build(ISpeaker from) {

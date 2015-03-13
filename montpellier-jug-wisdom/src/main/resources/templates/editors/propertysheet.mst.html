@@ -2,11 +2,11 @@
     <div class="panel panel-default">
         <div class="panel-heading">Edit News</div>
         <div class="panel-body">
-            <form class="form-horizontal">
+            <form name="propertysheet" class="form-horizontal">
             {{#properties}}
-            <div class="form-group {{^visible}}hidden{{/visible}}">
+            <div class="{{editorName}} form-group {{^visible}}hidden{{/visible}}">
                 <div class="row">
-                    <label class="col-sm-4  control-label" for="{{name}}">{{name}}</label>
+                    <label class="col-sm-4  control-label" for="{{name}}">{{displayname}}</label>
                     <div class="col-sm-6">{{{editor}}}</div>
                 </div>
                 <div class="row">
@@ -22,6 +22,5 @@
             <button class="btn btn-default" type="button">Cancel</button>
         </div>
     </div>
-
 </div>
 <div class="col-md-2"></div>

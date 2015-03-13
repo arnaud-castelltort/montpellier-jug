@@ -1,6 +1,8 @@
 package org.jug.montpellier.forms.services.editors.base;
 
+import org.jug.montpellier.forms.models.PropertyDefinition;
 import org.jug.montpellier.forms.services.Editor;
+import org.jug.montpellier.forms.services.EditorService;
 import org.wisdom.api.Controller;
 import org.wisdom.api.http.Renderable;
 import org.wisdom.api.templates.Template;
@@ -11,12 +13,13 @@ import java.util.Map;
 /**
  * Created by Eric Taix on 11/03/2015.
  */
-public class StringEditor implements Editor {
+public class StringEditor extends BaseEditor implements Editor {
 
     private final Template template;
     private String value;
 
-    public StringEditor(Template template) {
+    public StringEditor(Template template, EditorService factory) {
+        super(factory);
         this.template = template;
     }
 
@@ -41,9 +44,9 @@ public class StringEditor implements Editor {
     }
 
     @Override
-    public Renderable getCustomEditor(Controller controller) {
+    public Renderable getCustomEditor(Controller controller, PropertyDefinition property) {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("value", getAsText());
+        parameters.put("property", property);
         return template.render(controller, parameters);
     }
 }
