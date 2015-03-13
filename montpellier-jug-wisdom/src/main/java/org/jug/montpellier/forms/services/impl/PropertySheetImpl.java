@@ -4,7 +4,7 @@ import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Instantiate;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
-import org.jug.montpellier.forms.annotations.Property;
+import org.jug.montpellier.forms.services.RenderableProperty;
 import org.jug.montpellier.forms.services.PropertySheet;
 import org.jug.montpellier.forms.models.FormProperty;
 import org.jug.montpellier.forms.services.EditorManager;
@@ -39,7 +39,7 @@ public class PropertySheetImpl implements PropertySheet {
     }
 
     @Override
-    public Renderable getRenderable(Controller controller, Object object) throws IntrospectionException, InvocationTargetException, IllegalAccessException {
+    public Renderable getRenderable(Controller controller, Object object) throws IntrospectionException, InvocationTargetException, IllegalAccessException, ClassNotFoundException {
         if (object != null) {
             BeanInfo beanInfo = Introspector.getBeanInfo(object.getClass());
             PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
@@ -48,13 +48,14 @@ public class PropertySheetImpl implements PropertySheet {
             Field[] fields = object.getClass().getDeclaredFields();
             for (Field field : fields) {
                 field.setAccessible(true);
-                Editor editor = editorManager.createEditor(field.get(object));
+                RenderableProperty renderableProperty = field.getAnnotation(RenderableProperty.class);
+                Editor editor = editorManager.createEditor(field.get(object), field.getType(), renderableProperty);
                 if (editor != null) {
-                    Property property = field.getAnnotation(Property.class);
                     FormProperty formProperty = new FormProperty();
-                    formProperty.name = property != null && property.displayLabel() != null && !property.displayLabel().isEmpty() ? property.displayLabel() : field.getName();
-                    formProperty.description = property != null && property.description() != null && !property.description().isEmpty() ? property.description() : "";
-                    formProperty.value = editor.getAsText();
+                    formProperty.name = renderableProperty != null && renderableProperty.displayLabel() != null && !renderableProperty.displayLabel().isEmpty() ? renderableProperty.displayLabel() : field.getName();
+                    formProperty.description = renderableProperty != null && renderableProperty.description() != null && !renderableProperty.description().isEmpty() ? renderableProperty.description() : "";
+                    formProperty.value = editor.getValue();
+                    formProperty.valueAsText = editor.getAsText();
                     formProperty.editor = editor.getCustomEditor(controller).content();
                     properties.add(formProperty);
                 }
@@ -68,7 +69,7 @@ public class PropertySheetImpl implements PropertySheet {
     }
 
     @Override
-    public Object getContent(Controller controller, Object object) throws IllegalAccessException, IntrospectionException, InvocationTargetException {
+    public Object getContent(Controller controller, Object object) throws IllegalAccessException, IntrospectionException, InvocationTargetException, ClassNotFoundException {
         return getRenderable(controller, object).content();
     }
 }

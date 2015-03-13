@@ -23,7 +23,7 @@ public abstract  class DaoTestCase {
 
     public void jooq(JooqCommand command) {
         String userName = "jug";
-        String password = "jug";
+        String password = "sofree";
         String url = "jdbc:postgresql:jugbuild";
 
         try (Connection conn = DriverManager.getConnection(url, userName, password)) {

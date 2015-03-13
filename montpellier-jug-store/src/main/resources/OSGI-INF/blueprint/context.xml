@@ -96,7 +96,6 @@
     <argument index="0" ref="config"/>
   </bean>
 
-
   <service ref="answerDao" interface="org.montpellierjug.store.jooq.tables.daos.AnswerDao" />
   <service ref="eventDao" interface="org.montpellierjug.store.jooq.tables.daos.EventDao" />
   <service ref="eventPartnerDao" interface="org.montpellierjug.store.jooq.tables.daos.EventpartnerDao" />

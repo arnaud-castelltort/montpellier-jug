@@ -5,20 +5,22 @@ import java.util.Date;
 
 public class News {
 
-	public Date date = Calendar.getInstance().getTime();
-	public String title = "NO TILE";
-	public String content = "NO CONTENT";
-	public Boolean valid;
+    public Date date = Calendar.getInstance().getTime();
+    public String title = "NO TILE";
+    public String content = "NO CONTENT";
+    public Boolean valid;
 
-	public News() {}
-	
-	public News(String title, String content) {
-		this.title = title;
-		this.content = content;
-	}
-public Boolean getValid() {
-    return valid;
-}
+    public News() {
+    }
+
+    public News(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public Boolean getValid() {
+        return valid;
+    }
 
     public void setValid(Boolean valid) {
         this.valid = valid;

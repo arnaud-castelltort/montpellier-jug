@@ -54,7 +54,7 @@ public class NewsController extends JugController {
     
     @Route(method = HttpMethod.GET, uri = "/")
     public Result news() {
-        return renderRoot(template, "news", buildNews());
+        return template(template).withParam("news", buildNews()).render();
     }
 
 }
