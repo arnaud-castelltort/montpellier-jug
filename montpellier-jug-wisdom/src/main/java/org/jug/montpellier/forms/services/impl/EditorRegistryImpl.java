@@ -2,9 +2,10 @@ package org.jug.montpellier.forms.services.impl;
 
 import org.apache.felix.ipojo.annotations.*;
 import org.jug.montpellier.forms.services.Editor;
-import org.jug.montpellier.forms.services.EditorManager;
+import org.jug.montpellier.forms.services.EditorRegistry;
 import org.jug.montpellier.forms.services.EditorService;
 import org.jug.montpellier.forms.services.RenderableProperty;
+import org.jug.montpellier.forms.services.editors.base.NotImplementedEditorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,11 +16,11 @@ import java.util.Map;
  * Created by Eric Taix on 08/03/2015.
  */
 @Component
-@Provides(specifications = EditorManager.class)
+@Provides(specifications = EditorRegistry.class)
 @Instantiate
-public class EditorManagerImpl implements EditorManager {
+public class EditorRegistryImpl implements EditorRegistry {
 
-    private static Logger logger = LoggerFactory.getLogger(EditorManagerImpl.class);
+    private static Logger logger = LoggerFactory.getLogger(EditorRegistryImpl.class);
 
     private Map<Class, EditorService> formEditorByEditedType = new HashMap<>();
     private Map<Class, EditorService> formEditorByClass = new HashMap<>();
@@ -27,8 +28,8 @@ public class EditorManagerImpl implements EditorManager {
     @Override
     public Editor createEditor(Object field, Class<?> fieldClass, RenderableProperty renderableProperty) throws ClassNotFoundException {
         EditorService factory = formEditorByEditedType.get(fieldClass);
-        if (renderableProperty != null && !renderableProperty.editorService().isEmpty()) {
-            factory = formEditorByClass.get(Class.forName(renderableProperty.editorService()));
+        if (renderableProperty != null && !renderableProperty.editorService().equals(NotImplementedEditorService.class)) {
+            factory = formEditorByClass.get(renderableProperty.editorService());
         }
         if (factory != null) {
             return factory.createFormEditor(field);
@@ -41,7 +42,7 @@ public class EditorManagerImpl implements EditorManager {
      */
     @Bind(specification = EditorService.class, aggregate = true)
     public synchronized void bindFormEditorFactory(EditorService factory) {
-        logger.info("Adding FormEditorFactory from " + factory);
+        logger.info("Adding EditorFactory " + factory);
         if (factory != null) {
             if (factory.getEditedType() != null) {
                 formEditorByEditedType.put(factory.getEditedType(), factory);
@@ -55,7 +56,7 @@ public class EditorManagerImpl implements EditorManager {
      */
     @Unbind(specification = EditorService.class, aggregate = true)
     public synchronized void unbindFormEditorFactory(EditorService factory) {
-        logger.info("Removing FormEditorFactory from " + factory);
+        logger.info("Removing EditorFactory " + factory);
         if (factory != null) {
             formEditorByEditedType.remove(factory.getEditedType());
             formEditorByClass.remove(factory.getClass());

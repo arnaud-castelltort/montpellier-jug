@@ -1,5 +1,6 @@
 package org.jug.montpellier.forms.services;
 
+import org.jug.montpellier.forms.models.PropertyDefinition;
 import org.wisdom.api.Controller;
 import org.wisdom.api.http.Renderable;
 
@@ -7,6 +8,9 @@ import org.wisdom.api.http.Renderable;
  * Created by Eric Taix on 08/03/2015.
  */
 public interface Editor {
+
+
+    public EditorService service();
 
     /**
      * Gets the property value.
@@ -45,6 +49,6 @@ public interface Editor {
      *
      * @return A java.lang.String which determines the editor to use
      */
-    public Renderable getCustomEditor(Controller controller);
+    public Renderable getCustomEditor(Controller controller, PropertyDefinition property);
 
 }

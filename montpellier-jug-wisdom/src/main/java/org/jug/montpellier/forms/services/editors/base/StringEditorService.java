@@ -16,7 +16,7 @@ import org.wisdom.api.templates.Template;
 @Instantiate
 public class StringEditorService implements EditorService {
 
-    @View("editors/string")
+    @View("editors/base/string")
     Template template;
 
     @Override
@@ -26,7 +26,7 @@ public class StringEditorService implements EditorService {
 
     @Override
     public Editor createFormEditor(Object model) {
-        StringEditor editor = new StringEditor(template);
+        StringEditor editor = new StringEditor(template, this);
         editor.setValue(model);
         return editor;
     }

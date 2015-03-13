@@ -35,6 +35,6 @@ public @interface RenderableProperty {
      * why! If you find a way to use Class instead of a String, please fix it ;-)
      * @return
      */
-    String editorService() default "";
+    Class<? extends EditorService> editorService() default NotImplementedEditorService.class;
 
 }

@@ -1,6 +1,8 @@
 package org.jug.montpellier.forms.services.editors.base;
 
+import org.jug.montpellier.forms.models.PropertyDefinition;
 import org.jug.montpellier.forms.services.Editor;
+import org.jug.montpellier.forms.services.EditorService;
 import org.wisdom.api.Controller;
 import org.wisdom.api.http.Renderable;
 import org.wisdom.api.templates.Template;
@@ -11,14 +13,15 @@ import java.util.Map;
 /**
  * Created by Eric Taix on 11/03/2015.
  */
-public class BooleanEditor implements Editor {
+public class BooleanEditor extends BaseEditor implements Editor {
 
     private static final String TRUE = "true";
     private static final String FALSE = "false";
     private final Template template;
     private Boolean value;
 
-    public BooleanEditor(Template template) {
+    public BooleanEditor(Template template, EditorService service) {
+        super(service);
         this.template = template;
     }
 
@@ -43,9 +46,9 @@ public class BooleanEditor implements Editor {
     }
 
     @Override
-    public Renderable getCustomEditor(Controller controller) {
+    public Renderable getCustomEditor(Controller controller, PropertyDefinition property) {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("value", getAsText());
+        parameters.put("property", property);
         return template.render(controller, parameters);
     }
 }

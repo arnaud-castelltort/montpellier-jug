@@ -3,7 +3,7 @@ package org.jug.montpellier.forms.models;
 /**
  * Created by Eric Taix on 07/03/2015.
  */
-public class FormProperty {
+public class PropertyDefinition {
 
     public String name;
     public Object value;
@@ -12,4 +12,6 @@ public class FormProperty {
     public String id;
     public String description;
     public boolean visible = true;
+    public String editorName;
+    public String displayname;
 }
