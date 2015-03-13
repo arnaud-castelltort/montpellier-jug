@@ -57,6 +57,7 @@ public class PropertySheetImpl implements PropertySheet {
                     formProperty.value = editor.getValue();
                     formProperty.valueAsText = editor.getAsText();
                     formProperty.editor = editor.getCustomEditor(controller).content();
+                    formProperty.visible = renderableProperty.visible();
                     properties.add(formProperty);
                 }
             }
