@@ -1,9 +1,10 @@
 package org.jug.montpellier.forms.services.impl;
 
 import org.apache.felix.ipojo.annotations.*;
-import org.jug.montpellier.forms.services.EditorManager;
 import org.jug.montpellier.forms.services.Editor;
+import org.jug.montpellier.forms.services.EditorManager;
 import org.jug.montpellier.forms.services.EditorService;
+import org.jug.montpellier.forms.services.RenderableProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,14 +21,17 @@ public class EditorManagerImpl implements EditorManager {
 
     private static Logger logger = LoggerFactory.getLogger(EditorManagerImpl.class);
 
-   // @Requires
-    private Map<Class, EditorService> formEditorFactories = new HashMap<>();
+    private Map<Class, EditorService> formEditorByEditedType = new HashMap<>();
+    private Map<Class, EditorService> formEditorByClass = new HashMap<>();
 
     @Override
-    public Editor createEditor(Object model) {
-        EditorService factory =  formEditorFactories.get(model.getClass());
+    public Editor createEditor(Object field, Class<?> fieldClass, RenderableProperty renderableProperty) throws ClassNotFoundException {
+        EditorService factory = formEditorByEditedType.get(fieldClass);
+        if (renderableProperty != null && !renderableProperty.editorService().isEmpty()) {
+            factory = formEditorByClass.get(Class.forName(renderableProperty.editorService()));
+        }
         if (factory != null) {
-            return factory.createFormEditor(model);
+            return factory.createFormEditor(field);
         }
         return null;
     }
@@ -39,7 +43,10 @@ public class EditorManagerImpl implements EditorManager {
     public synchronized void bindFormEditorFactory(EditorService factory) {
         logger.info("Adding FormEditorFactory from " + factory);
         if (factory != null) {
-            formEditorFactories.put(factory.getEditedType(), factory);
+            if (factory.getEditedType() != null) {
+                formEditorByEditedType.put(factory.getEditedType(), factory);
+            }
+            formEditorByClass.put(factory.getClass(), factory);
         }
     }
 
@@ -50,7 +57,8 @@ public class EditorManagerImpl implements EditorManager {
     public synchronized void unbindFormEditorFactory(EditorService factory) {
         logger.info("Removing FormEditorFactory from " + factory);
         if (factory != null) {
-            formEditorFactories.remove(factory.getEditedType());
+            formEditorByEditedType.remove(factory.getEditedType());
+            formEditorByClass.remove(factory.getClass());
         }
     }
 }

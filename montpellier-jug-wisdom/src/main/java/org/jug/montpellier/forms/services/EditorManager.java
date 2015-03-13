@@ -8,7 +8,7 @@ public interface EditorManager {
 
     /**
      * Try to create a {@link Editor} instance according
-     * to the object type. May return null if no suitable FormEditor could be found
+     * to the object type. May return null if no suitable Editor could be found
      */
-    Editor createEditor(Object object);
+    public Editor createEditor(Object field, Class<?> fieldClass, RenderableProperty fieldRenderableProperty) throws ClassNotFoundException;
 }

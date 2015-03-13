@@ -43,7 +43,7 @@ public class HomeController extends JugController {
 
     @Route(method = HttpMethod.GET, uri = "")
     public Result welcome() {
-        return renderRoot(template);
+        return template(template).render();
     }
 
 }

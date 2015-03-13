@@ -11,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
  */
 public interface PropertySheet {
 
-    public Renderable getRenderable(Controller controller, Object object) throws IntrospectionException, InvocationTargetException, IllegalAccessException;
+    public Renderable getRenderable(Controller controller, Object object) throws IntrospectionException, InvocationTargetException, IllegalAccessException, ClassNotFoundException;
 
-    public Object getContent(Controller controller, Object object) throws IllegalAccessException, IntrospectionException, InvocationTargetException;
+    public Object getContent(Controller controller, Object object) throws IllegalAccessException, IntrospectionException, InvocationTargetException, ClassNotFoundException;
 }

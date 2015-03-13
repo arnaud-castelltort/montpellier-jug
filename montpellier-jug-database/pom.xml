@@ -31,7 +31,7 @@
         <configuration>
           <url>jdbc:postgresql:jugbuild</url>
           <user>jug</user>
-          <password>jug</password>
+          <password>sofree</password>
           <schemas>
             <schema>jug</schema>
           </schemas>
@@ -94,7 +94,7 @@
                 <configuration>
                   <url>jdbc:postgresql:jugbuild</url>
                   <user>jug</user>
-                  <password>jug</password>
+                  <password>sofree</password>
                   <schemas>
                     <schema>jug</schema>
                   </schemas>

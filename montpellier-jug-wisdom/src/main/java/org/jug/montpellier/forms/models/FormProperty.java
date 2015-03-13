@@ -6,7 +6,8 @@ package org.jug.montpellier.forms.models;
 public class FormProperty {
 
     public String name;
-    public String value;
+    public Object value;
+    public String valueAsText;
     public Object editor;
     public String id;
     public String description;

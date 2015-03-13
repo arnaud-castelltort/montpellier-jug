@@ -43,7 +43,7 @@ public class EventsController extends JugController {
 
     @Route(method = HttpMethod.GET, uri = "/")
     public Result events() {
-        return renderRoot(template);
+        return template(template).render();
     }
 
 }

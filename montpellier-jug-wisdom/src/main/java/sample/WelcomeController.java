@@ -19,17 +19,19 @@
  */
 package sample;
 
-import java.util.*;
-
 import org.apache.felix.ipojo.annotations.Requires;
+import org.jug.montpellier.cartridges.news.models.News;
 import org.jug.montpellier.core.api.CartridgeSupport;
 import org.jug.montpellier.core.controller.JugController;
-import org.jug.montpellier.cartridges.news.models.News;
 import org.wisdom.api.annotations.*;
 import org.wisdom.api.http.HttpMethod;
 import org.wisdom.api.http.Result;
 import org.wisdom.api.templates.Template;
 import services.PropertiesForm;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @Path("/deprecated")
@@ -41,6 +43,20 @@ public class WelcomeController extends JugController {
      */
     @View("welcome")
     Template welcome;
+    /**
+     * NEWS PART => To be move into the right controller
+     */
+
+    @View("news")
+    Template news;
+    /**
+     * FORM NEWS PART
+     */
+
+    @View("form")
+    Template formTemplate;
+    @Requires
+    PropertiesForm propertiesForm;
 
     public WelcomeController(@Requires CartridgeSupport cartridgeSupport) {
         super(cartridgeSupport);
@@ -54,31 +70,14 @@ public class WelcomeController extends JugController {
      */
     @Route(method = HttpMethod.GET, uri = "/")
     public Result welcome() {
-        return renderRoot(welcome, "welcome","Welcome to Wisdom Framework");
+        return template(welcome).withParam("welcome", "Welcome to Wisdom Framework").render();
     }
-
-    /**
-     * NEWS PART => To be move into the right controller
-     */
-
-    @View("news")
-    Template news;
 
     List<News> news() {
         return Arrays.asList(
                 new News("Nouveau site", "Trop trop bien ;)")
         );
     }
-
-    /**
-     * FORM NEWS PART
-     */
-
-    @View("form")
-    Template formTemplate;
-
-    @Requires
-    PropertiesForm propertiesForm;
 
     @Route(method = HttpMethod.GET, uri = "/addnews")
     public Result addNewsGet() {
@@ -93,6 +92,7 @@ public class WelcomeController extends JugController {
         news.valid = true;
         return ok(news);
     }
+
     @Route(method = HttpMethod.POST, uri = "/addnews2")
     public Result addNewsPost2(@Body News myNews) {
         List<News> allNews = new ArrayList<News>(news());

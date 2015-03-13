@@ -199,7 +199,7 @@
             <driver>org.postgresql.Driver</driver>
             <url>jdbc:postgresql:jugbuild</url>
             <user>jug</user>
-            <password>jug</password>
+            <password>sofree</password>
           </jdbc>
 
           <!-- Generator parameters -->
@@ -218,6 +218,8 @@
               <pojos>true</pojos>
               <daos>true</daos>
               <fluentSetters>true</fluentSetters>
+              <validationAnnotations>true</validationAnnotations>
+              <interfaces>true</interfaces>
             </generate>
           </generator>
 
