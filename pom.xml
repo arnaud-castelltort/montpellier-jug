@@ -37,6 +37,7 @@
       <wisdom-postgresql.version>9.1-902.jdbc4_1</wisdom-postgresql.version>
       <wisdom-activiti.version>1.0.3-SNAPSHOT</wisdom-activiti.version>
       <wisdom-oauth2-authenticator.version>1.0-SNAPSHOT</wisdom-oauth2-authenticator.version>
+        <wisdom-oauth2-controller.version>1.1-SNAPSHOT</wisdom-oauth2-controller.version>
       <jooq.version>3.5.1</jooq.version>
       <java.version>1.8</java.version>
       <ipojo.version>1.12.2-SNAPSHOT</ipojo.version>
@@ -272,7 +273,7 @@
           <dependency>
             <groupId>org.wisdom-framework.oauth2</groupId>
             <artifactId>wisdom-oauth2-controller</artifactId>
-            <version>${wisdom-oauth2-authenticator.version}</version>
+            <version>${wisdom-oauth2-controller.version}</version>
           </dependency>
 
           <dependency>
