@@ -9,7 +9,7 @@ So you need to :
 ```bash
 > git clone https://github.com/cheleb/wisdom-oauth2-authenticator.git
 > cd wisdom-oauth2-authenticator
-> mvn clean compile
+> mvn clean install
 ```
 
 ## Database installation
