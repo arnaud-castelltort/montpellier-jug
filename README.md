@@ -4,9 +4,9 @@
 
 ## Database installation
 
-Runtime: A posgresql database named "jug" must be accessible for user jug / sofree
+Runtime: A posgresql database named "jug" must be accessible for user jug / jug
 
-Build time (jooq code generation): : A posgresql database named "jugbuild" must be accessible for user jug / sofree
+Build time (jooq code generation): : A posgresql database named "jugbuild" must be accessible for user jug / jug
 
 ## Mvn installation
 
