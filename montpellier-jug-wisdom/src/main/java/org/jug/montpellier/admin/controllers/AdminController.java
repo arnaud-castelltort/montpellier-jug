@@ -22,6 +22,7 @@ package org.jug.montpellier.admin.controllers;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jug.montpellier.admin.models.Model1;
 import org.jug.montpellier.core.api.CartridgeSupport;
+import org.jug.montpellier.core.api.NextEventSupport;
 import org.jug.montpellier.core.controller.JugController;
 import org.jug.montpellier.cartridges.news.models.News;
 import org.jug.montpellier.forms.services.PropertySheet;
