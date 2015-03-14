@@ -108,7 +108,7 @@
                 <configuration>
                   <url>jdbc:postgresql:jug</url>
                   <user>jug</user>
-                  <password>sofree</password>
+                  <password>jug</password>
                   <schemas>
                     <schema>jug</schema>
                   </schemas>
