@@ -2,7 +2,15 @@
 
 # Installation
 
-depends on [OAuth2 Authenticator](https://github.com/cheleb/wisdom-oauth2-authenticator)
+Depends on [OAuth2 Authenticator](https://github.com/cheleb/wisdom-oauth2-authenticator)
+
+So you need to :
+
+```bash
+> git clone https://github.com/cheleb/wisdom-oauth2-authenticator.git
+> cd wisdom-oauth2-authenticator
+> mvn clean compile
+```
 
 ## Database installation
 
