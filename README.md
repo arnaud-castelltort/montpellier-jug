@@ -2,6 +2,8 @@
 
 # Installation
 
+depends on [OAuth2 Authenticator](https://github.com/cheleb/wisdom-oauth2-authenticator)
+
 ## Database installation
 
 Runtime: A posgresql database named "jug" must be accessible for user jug / sofree

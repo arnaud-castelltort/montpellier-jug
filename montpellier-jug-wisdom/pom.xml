@@ -43,6 +43,12 @@
     </dependency>
 
     <dependency>
+      <groupId>org.wisdom-framework.oauth2</groupId>
+      <artifactId>wisdom-oauth2-authenticator</artifactId>
+      <version>1.1-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.apache.felix</groupId>
       <artifactId>org.apache.felix.ipojo.annotations</artifactId>
     </dependency>
