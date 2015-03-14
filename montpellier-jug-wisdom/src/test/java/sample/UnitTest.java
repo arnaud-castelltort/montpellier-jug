@@ -21,6 +21,8 @@ package sample;
 
 import org.jug.montpellier.core.api.Cartridge;
 import org.jug.montpellier.core.api.CartridgeSupport;
+import org.jug.montpellier.core.api.NextEventSupport;
+import org.jug.montpellier.core.api.model.NextEvent;
 import org.junit.Test;
 import org.wisdom.api.http.Result;
 import org.wisdom.api.http.Status;
@@ -51,6 +53,11 @@ public class UnitTest {
             @Override
             public List<Cartridge> cartridges() {
                 return new ArrayList<>();
+            }
+        }, new NextEventSupport() {
+            @Override
+            public NextEvent getNextEvent() {
+                return null;
             }
         });
         // Use a mock to simulate the template.
