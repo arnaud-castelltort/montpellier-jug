@@ -40,7 +40,7 @@
         <wisdom-oauth2-controller.version>1.1-SNAPSHOT</wisdom-oauth2-controller.version>
       <jooq.version>3.5.1</jooq.version>
       <java.version>1.8</java.version>
-      <ipojo.version>1.12.2-SNAPSHOT</ipojo.version>
+      <ipojo.version>1.12.1</ipojo.version>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -136,29 +136,6 @@
           </dependency>
 
           <dependency>
-            <groupId>org.apache.servicemix.bundles</groupId>
-            <artifactId>org.apache.servicemix.bundles.spring-context-support</artifactId>
-            <version>4.1.2.RELEASE_1</version>
-          </dependency>
-
-          <dependency>
-            <groupId>org.apache.servicemix.bundles</groupId>
-            <artifactId>org.apache.servicemix.bundles.spring-aop</artifactId>
-            <version>4.1.2.RELEASE_1</version>
-          </dependency>
-
-          <dependency>
-            <groupId>org.apache.servicemix.bundles</groupId>
-            <artifactId>org.apache.servicemix.bundles.spring-aspects</artifactId>
-            <version>4.1.2.RELEASE_1</version>
-          </dependency>
-          <dependency>
-            <groupId>org.apache.servicemix.bundles</groupId>
-            <artifactId>org.apache.servicemix.bundles.aspectj</artifactId>
-            <version>1.8.4_1</version>
-          </dependency>
-
-          <dependency>
             <groupId>org.apache.aries.proxy</groupId>
             <artifactId>org.apache.aries.proxy</artifactId>
             <version>1.0.1</version>
@@ -196,11 +173,13 @@
             <artifactId>org.apache.servicemix.bundles.spring-context</artifactId>
             <version>${spring.version}</version>
           </dependency>
+
           <dependency>
             <groupId>org.apache.servicemix.bundles</groupId>
             <artifactId>org.apache.servicemix.bundles.spring-context-support</artifactId>
-            <version>4.1.2.RELEASE_1</version>
+            <version>${spring.version}</version>
           </dependency>
+
           <dependency>
             <groupId>org.apache.servicemix.bundles</groupId>
             <artifactId>org.apache.servicemix.bundles.spring-core</artifactId>
@@ -240,11 +219,15 @@
           </dependency>
 
           <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.fileinstall</artifactId>
-            <version>3.4.2</version>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.spring-aspects</artifactId>
+            <version>4.1.2.RELEASE_1</version>
           </dependency>
-
+          <dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.aspectj</artifactId>
+            <version>1.8.4_1</version>
+          </dependency>
 
           <dependency>
             <groupId>org.apache.commons</groupId>
@@ -312,6 +295,20 @@
           </configuration>
         </plugin>
       </plugins>
+
+      <pluginManagement>
+
+        <plugins>
+
+          <plugin>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>maven-ipojo-plugin</artifactId>
+            <version>${ipojo.version}</version>
+          </plugin>
+
+        </plugins>
+
+      </pluginManagement>
 
     </build>
 
