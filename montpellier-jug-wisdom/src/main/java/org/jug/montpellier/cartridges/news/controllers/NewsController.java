@@ -58,5 +58,5 @@ public class NewsController extends JugController {
     public Result news() {
         return template(template).withParam("news", buildNews()).render();
     }
- 
+
 }
