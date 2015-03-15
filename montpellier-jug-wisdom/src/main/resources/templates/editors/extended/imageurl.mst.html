@@ -1,4 +1,4 @@
-<input id="{{property.name}} "type="text" class="form-control " onkeyup="imageChange(this.value);" placeholder="{{property.displayname}}" value="{{property.value}}" aria-describedby="basic-addon1"><img id="img{{property.name}}" src="{{property.value}}">
+<input name="{{property.name}} "type="text" class="form-control " onkeyup="imageChange(this.value);" placeholder="{{property.displayname}}" value="{{property.value}}" aria-describedby="basic-addon1"><img id="img{{property.name}}" src="{{property.value}}">
 <script>function imageChange(val) {
     document.getElementById("img{{property.name}}").src = val;
     };

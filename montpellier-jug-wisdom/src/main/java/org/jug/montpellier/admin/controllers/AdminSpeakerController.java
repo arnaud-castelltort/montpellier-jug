@@ -102,4 +102,10 @@ public class AdminSpeakerController extends JugController {
         return template(template).withPropertySheet(propertySheet.getRenderable(this, editedSpeaker)).render();
     }
 
+    @Route(method = HttpMethod.POST, uri = "/speaker/{id}")
+    public Result saveSpeaker(@Parameter("id") Long id, @Body Speaker speaker) throws InvocationTargetException, ClassNotFoundException, IntrospectionException, IllegalAccessException {
+        speakerDao.update(speaker.into(new org.montpellierjug.store.jooq.tables.pojos.Speaker()));
+        return redirect("/admin/speaker/"+id);
+    }
+
 }

@@ -37,9 +37,6 @@ public class EditorRegistryImpl implements EditorRegistry {
         return null;
     }
 
-    /**
-     * Binds a new FormEditorFactory
-     */
     @Bind(specification = EditorService.class, aggregate = true)
     public synchronized void bindFormEditorFactory(EditorService factory) {
         logger.info("Adding EditorFactory " + factory);
@@ -51,9 +48,6 @@ public class EditorRegistryImpl implements EditorRegistry {
         }
     }
 
-    /**
-     * Unbinds a FormEditorFactory.
-     */
     @Unbind(specification = EditorService.class, aggregate = true)
     public synchronized void unbindFormEditorFactory(EditorService factory) {
         logger.info("Removing EditorFactory " + factory);
@@ -61,5 +55,11 @@ public class EditorRegistryImpl implements EditorRegistry {
             formEditorByEditedType.remove(factory.getEditedType());
             formEditorByClass.remove(factory.getClass());
         }
+    }
+
+    @Invalidate
+    public void stop() {
+        formEditorByEditedType.clear();
+        formEditorByClass.clear();
     }
 }
