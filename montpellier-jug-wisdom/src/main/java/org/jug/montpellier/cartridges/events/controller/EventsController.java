@@ -22,6 +22,7 @@ package org.jug.montpellier.cartridges.events.controller;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jug.montpellier.core.api.CartridgeSupport;
 import org.jug.montpellier.core.api.NextEventSupport;
+import org.jug.montpellier.core.api.PartnerSupport;
 import org.jug.montpellier.core.controller.JugController;
 import org.montpellierjug.store.jooq.tables.daos.EventDao;
 import org.montpellierjug.store.jooq.tables.daos.EventpartnerDao;
@@ -57,8 +58,8 @@ public class EventsController extends JugController {
     @Requires
     TalkDao talkDao;
 
-    public EventsController(@Requires CartridgeSupport cartridgeSupport, @Requires NextEventSupport nextEventSupport) {
-        super(cartridgeSupport, nextEventSupport);
+    public EventsController(@Requires CartridgeSupport cartridgeSupport, @Requires NextEventSupport nextEventSupport, @Requires PartnerSupport partnerSupport) {
+        super(cartridgeSupport, nextEventSupport, partnerSupport);
     }
 
     @Route(method = HttpMethod.GET, uri = "/")

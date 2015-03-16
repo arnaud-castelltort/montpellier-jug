@@ -6,11 +6,7 @@
             <h3>Devenir sponsor?</h3>
             <p>Venez nous rencontrer lors d'un évènement ou envoyez nous un email.</p>
         </div>
-        <ul class="partners-list">
-            <li><a href="@routes.Application.partner(partner.id.get)"><img
-                    src="@partner.logourl.get" /></a></li>
-            <div class="clear"></div>
-        </ul>
+        {{> partners}}
 
     </section>
 

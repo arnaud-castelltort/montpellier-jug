@@ -37,6 +37,7 @@ public class NextEventSupportImpl implements NextEventSupport {
 
     public NextEvent getNextEvent() {
         List<Event> events = eventDao.fetchByOpen(true);
+        //TODO: make it with a request in bd !!??
         Event event = events.isEmpty() ? null : events.get(0);
         NextEvent nextEvent = null;
         if(event != null) {
