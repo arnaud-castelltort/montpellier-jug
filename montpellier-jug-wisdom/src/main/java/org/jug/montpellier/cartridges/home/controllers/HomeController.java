@@ -22,6 +22,7 @@ package org.jug.montpellier.cartridges.home.controllers;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jug.montpellier.core.api.CartridgeSupport;
 import org.jug.montpellier.core.api.NextEventSupport;
+import org.jug.montpellier.core.api.PartnerSupport;
 import org.jug.montpellier.core.controller.JugController;
 import org.wisdom.api.annotations.Controller;
 import org.wisdom.api.annotations.Path;
@@ -38,8 +39,8 @@ public class HomeController extends JugController {
     @View("home")
     Template template;
 
-    public HomeController(@Requires CartridgeSupport cartridgeSupport, @Requires NextEventSupport nextEventSupport) {
-        super(cartridgeSupport, nextEventSupport);
+    public HomeController(@Requires CartridgeSupport cartridgeSupport, @Requires NextEventSupport nextEventSupport, @Requires PartnerSupport partnerSupport) {
+        super(cartridgeSupport, nextEventSupport, partnerSupport);
     }
 
     @Route(method = HttpMethod.GET, uri = "")

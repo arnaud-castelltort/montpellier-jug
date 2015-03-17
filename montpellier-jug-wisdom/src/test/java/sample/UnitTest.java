@@ -22,8 +22,11 @@ package sample;
 import org.jug.montpellier.core.api.Cartridge;
 import org.jug.montpellier.core.api.CartridgeSupport;
 import org.jug.montpellier.core.api.NextEventSupport;
+import org.jug.montpellier.core.api.PartnerSupport;
+import org.jug.montpellier.core.api.impl.PartnerSupportImpl;
 import org.jug.montpellier.core.api.model.NextEvent;
 import org.junit.Test;
+import org.montpellierjug.store.jooq.tables.pojos.Yearpartner;
 import org.wisdom.api.http.Result;
 import org.wisdom.api.http.Status;
 import org.wisdom.api.templates.Template;
@@ -57,6 +60,11 @@ public class UnitTest {
         }, new NextEventSupport() {
             @Override
             public NextEvent getNextEvent() {
+                return null;
+            }
+        }, new PartnerSupport() {
+            @Override
+            public List<Yearpartner> getPartners() {
                 return null;
             }
         });

@@ -24,6 +24,7 @@ import java.util.*;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jug.montpellier.core.api.CartridgeSupport;
 import org.jug.montpellier.core.api.NextEventSupport;
+import org.jug.montpellier.core.api.PartnerSupport;
 import org.jug.montpellier.core.controller.JugController;
 import org.jug.montpellier.cartridges.news.models.News;
 import org.wisdom.api.annotations.*;
@@ -43,8 +44,8 @@ public class WelcomeController extends JugController {
     @View("welcome")
     Template welcome;
 
-    public WelcomeController(@Requires CartridgeSupport cartridgeSupport, @Requires NextEventSupport nextEventSupport) {
-        super(cartridgeSupport, nextEventSupport);
+    public WelcomeController(@Requires CartridgeSupport cartridgeSupport, @Requires NextEventSupport nextEventSupport, @Requires PartnerSupport partnerSupport) {
+        super(cartridgeSupport, nextEventSupport, partnerSupport);
     }
 
     /**
