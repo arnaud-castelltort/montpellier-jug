@@ -1,5 +1,15 @@
 {{> layouts/header}}
 
-Welcome to this the new brand website!
+<section id="last-events">
+    <h2>Last events</h2>
+    {{#events}}
+    <article>
+        <h3>{{title}}</h3>
+        <p class="date">{{date}}</p>
+        <p>{{description}}</p>
+        <a class="more" href="/event/{{id}}">Lire la suite</a>
+    </article>
+    {{/events}}
+</section>
 
 {{> layouts/footer}}
