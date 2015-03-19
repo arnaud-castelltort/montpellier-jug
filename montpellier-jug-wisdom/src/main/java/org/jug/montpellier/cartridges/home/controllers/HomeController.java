@@ -36,8 +36,10 @@ import org.wisdom.api.http.Result;
 import org.wisdom.api.templates.Template;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -57,7 +59,13 @@ public class HomeController extends JugController {
 
     @Route(method = HttpMethod.GET, uri = "")
     public Result welcome() {
-        List<org.montpellierjug.store.jooq.tables.pojos.Event> eventsPojo = dslContext.select().from(Event.EVENT).orderBy(Event.EVENT.DATE).limit(3).fetchInto(org.montpellierjug.store.jooq.tables.pojos.Event.class);
+        List<org.montpellierjug.store.jooq.tables.pojos.Event> eventsPojo = dslContext
+                .select().from(Event.EVENT)
+                .where(Event.EVENT.OPEN.equal(false))
+                .and(Event.EVENT.DATE.lessThan(new Timestamp(Calendar.getInstance().getTime().getTime())))
+                .orderBy(Event.EVENT.DATE.desc())
+                .limit(3)
+                .fetchInto(org.montpellierjug.store.jooq.tables.pojos.Event.class);
         List<NextEvent> events = new ArrayList<>();
         for(org.montpellierjug.store.jooq.tables.pojos.Event eventPojo : eventsPojo) {
             events.add(NextEvent.fromPojo(eventPojo));
