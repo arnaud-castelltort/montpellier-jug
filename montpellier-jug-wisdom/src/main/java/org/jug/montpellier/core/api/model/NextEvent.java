@@ -17,6 +17,7 @@ public class NextEvent {
 
     public Long id;
     public String title;
+    public Boolean open;
     public String description;
     public String location;
     public String registrationurl;
@@ -33,6 +34,7 @@ public class NextEvent {
         NextEvent event = new NextEvent();
         event.id = eventPojo.getId();
         event.title = eventPojo.getTitle();
+        event.open = eventPojo.getOpen();
         event.description = eventPojo.getDescription();
         event.location = eventPojo.getLocation();
         event.registrationurl = eventPojo.getRegistrationurl();
