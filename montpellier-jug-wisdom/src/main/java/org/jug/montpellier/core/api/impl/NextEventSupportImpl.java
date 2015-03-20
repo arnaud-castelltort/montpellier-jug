@@ -5,10 +5,8 @@ import org.apache.felix.ipojo.annotations.Instantiate;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jooq.DSLContext;
-import org.jug.montpellier.core.api.CartridgeSupport;
 import org.jug.montpellier.core.api.NextEventSupport;
 import org.jug.montpellier.core.api.model.NextEvent;
-import org.montpellierjug.store.jooq.tables.daos.EventDao;
 import org.montpellierjug.store.jooq.tables.daos.EventpartnerDao;
 import org.montpellierjug.store.jooq.tables.daos.SpeakerDao;
 import org.montpellierjug.store.jooq.tables.daos.TalkDao;
@@ -26,9 +24,6 @@ import java.util.List;
 public class NextEventSupportImpl implements NextEventSupport {
     @Requires
     DSLContext dslContext;
-
-    @Requires
-    EventDao eventDao;
 
     @Requires
     EventpartnerDao eventpartnerDao;
