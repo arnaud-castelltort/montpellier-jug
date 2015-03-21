@@ -2,11 +2,21 @@
 
 # Installation
 
+Depends on [OAuth2 Authenticator](https://github.com/cheleb/wisdom-oauth2-authenticator)
+
+So you need to :
+
+```bash
+> git clone https://github.com/cheleb/wisdom-oauth2-authenticator.git
+> cd wisdom-oauth2-authenticator
+> mvn clean install
+```
+
 ## Database installation
 
-Runtime: A posgresql database named "jug" must be accessible for user jug / sofree
+Runtime: A posgresql database named "jug" must be accessible for user jug / jug
 
-Build time (jooq code generation): : A posgresql database named "jugbuild" must be accessible for user jug / sofree
+Build time (jooq code generation): : A posgresql database named "jugbuild" must be accessible for user jug / jug
 
 ## Mvn installation
 

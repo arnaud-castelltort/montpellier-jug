@@ -22,6 +22,8 @@ package sample;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jug.montpellier.cartridges.news.models.News;
 import org.jug.montpellier.core.api.CartridgeSupport;
+import org.jug.montpellier.core.api.NextEventSupport;
+import org.jug.montpellier.core.api.PartnerSupport;
 import org.jug.montpellier.core.controller.JugController;
 import org.wisdom.api.annotations.*;
 import org.wisdom.api.http.HttpMethod;
@@ -58,8 +60,8 @@ public class WelcomeController extends JugController {
     @Requires
     PropertiesForm propertiesForm;
 
-    public WelcomeController(@Requires CartridgeSupport cartridgeSupport) {
-        super(cartridgeSupport);
+    public WelcomeController(@Requires CartridgeSupport cartridgeSupport, @Requires NextEventSupport nextEventSupport, @Requires PartnerSupport partnerSupport) {
+        super(cartridgeSupport, nextEventSupport, partnerSupport);
     }
 
     /**
