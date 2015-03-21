@@ -1,4 +1,4 @@
-package org.jug.montpellier.admin.models;
+package org.jug.montpellier.models;
 
 import org.jug.montpellier.forms.annotations.RenderableProperty;
 import org.jug.montpellier.forms.services.editors.extended.BigStringEditorService;
@@ -106,7 +106,7 @@ public class Speaker implements ISpeaker {
 
     @Override
     public ISpeaker setJugmember(Boolean value) {
-        this.jugMember = value;
+        this.jugMember = value != null ? value : false;
         return this;
     }
 

@@ -22,7 +22,7 @@ public class BooleanEditorService implements EditorService {
 
     @Override
     public Class<? extends Object> getEditedType() {
-        return Boolean.class;
+        return boolean.class;
     }
 
     @Override
