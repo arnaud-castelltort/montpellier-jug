@@ -1,0 +1,34 @@
+<header>
+    <div id="speakers">
+        <h2>Speakers</h2>
+        {{#speakers}}
+        <table cellpadding="4" cellspacing="10">
+            <tr>
+                <td>
+                    <img width="50px" height="50px" src='{{photourl}}'/>
+                </td>
+                <td>
+                    <dl>
+                        <dt><a href="/speakers/{{id}}">{{fullname}}</a></dt>
+                        <dd>{{activity}}</dd>
+                        <dd>{{compan}}</dd>
+                        <dd><a href="{{url}}" target="blank">{{url}}</a></dd>
+                    </dl>
+                </td>
+            </tr>
+        </table>
+        {{/speakers}}
+    </div>
+    <div id="presentation">
+        <h1><a href="/events/{{id}}">{{title}}</a></h1>
+        {{#partner}}
+        <h2><a href="/partners/{{id}}">Cet évènement est sponsorisé par {{name}}</a></h2>
+        {{/partner}}
+        <p>{{description}} <a href="/events/{{id}}">Plus d'informations</a></p>
+        <ul id="details">
+            <li class="date">{{date}} ({{capicity}} PLACES RESTANTES)</li>
+            <li class="place">{{location}}</li>
+            <li class="register"><a target="_blank" href="{{registrationurl}}">Inscription</a><li>
+        </ul>
+    </div>
+</header>
