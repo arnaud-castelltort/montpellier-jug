@@ -28,7 +28,13 @@
         <ul id="details">
             <li class="date">{{date}} ({{capicity}} PLACES RESTANTES)</li>
             <li class="place">{{location}}</li>
-            <li class="register"><a target="_blank" href="{{registrationurl}}">Inscription</a><li>
+            {{#open}}
+                <li class="register"><a target="_blank" href="{{registrationurl}}">Inscription</a><li>
+            {{/open}}
+            {{^open}}
+                <li class="register closed">Fermé</li>
+                <li class="register warning">ouverture : 7j avant l'event</li>
+            {{/open}}
         </ul>
     </div>
 </header>
