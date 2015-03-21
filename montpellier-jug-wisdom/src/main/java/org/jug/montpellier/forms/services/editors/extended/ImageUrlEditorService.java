@@ -1,10 +1,11 @@
-package org.jug.montpellier.forms.services.editors.base;
+package org.jug.montpellier.forms.services.editors.extended;
 
 import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Instantiate;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.jug.montpellier.forms.apis.Editor;
 import org.jug.montpellier.forms.apis.EditorService;
+import org.jug.montpellier.forms.services.editors.base.StringEditor;
 import org.wisdom.api.annotations.View;
 import org.wisdom.api.templates.Template;
 
@@ -14,14 +15,14 @@ import org.wisdom.api.templates.Template;
 @Component
 @Provides(specifications = EditorService.class)
 @Instantiate
-public class StringEditorService implements EditorService {
+public class ImageUrlEditorService implements EditorService {
 
-    @View("editors/base/string")
+    @View("editors/extended/imageurl")
     Template template;
 
     @Override
     public Class<? extends Object> getEditedType() {
-        return  String.class;
+        return null;
     }
 
     @Override

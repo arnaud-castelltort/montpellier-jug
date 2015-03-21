@@ -4,7 +4,7 @@ import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Instantiate;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
-import org.jug.montpellier.admin.controllers.AdminController;
+import org.jug.montpellier.admin.controllers.AdminSpeakerController;
 import org.jug.montpellier.core.api.Cartridge;
 import org.wisdom.api.router.Router;
 
@@ -23,7 +23,7 @@ public class AdminCartridge implements Cartridge {
 
     @Override
     public String routeUri() {
-        return router.getReverseRouteFor(AdminController.class, "model1");
+        return router.getReverseRouteFor(AdminSpeakerController.class, "home");
     }
 
     @Override

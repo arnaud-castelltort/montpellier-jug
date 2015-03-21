@@ -65,7 +65,7 @@ public class EventsController extends JugController {
     @Route(method = HttpMethod.GET, uri = "/")
     public Result events() {
         List<Event> events = eventDao.findAll();
-        return renderRoot(template, "events", events);
+        return template(template).withParam("events", events).render();
     }
 
 }
