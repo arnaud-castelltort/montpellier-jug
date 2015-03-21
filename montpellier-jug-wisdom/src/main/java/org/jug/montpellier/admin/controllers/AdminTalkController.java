@@ -20,15 +20,13 @@
 package org.jug.montpellier.admin.controllers;
 
 import org.apache.felix.ipojo.annotations.Requires;
-import org.jooq.DSLContext;
-import org.jug.montpellier.models.Speaker;
 import org.jug.montpellier.core.api.CartridgeSupport;
 import org.jug.montpellier.core.controller.JugController;
 import org.jug.montpellier.forms.apis.PropertySheet;
-import org.montpellierjug.store.jooq.tables.Event;
-import org.montpellierjug.store.jooq.tables.daos.SpeakerDao;
+import org.jug.montpellier.models.Speaker;
+import org.jug.montpellier.models.Talk;
+import org.montpellierjug.store.jooq.tables.daos.TalkDao;
 import org.wisdom.api.annotations.*;
-import org.wisdom.api.annotations.Controller;
 import org.wisdom.api.http.HttpMethod;
 import org.wisdom.api.http.Result;
 import org.wisdom.api.templates.Template;
@@ -37,8 +35,8 @@ import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 
 @Controller
-@Path("/admin/speaker")
-public class AdminSpeakerController extends JugController {
+@Path("/admin/talk")
+public class AdminTalkController extends JugController {
 
     @View("admin")
     Template template;
@@ -47,9 +45,9 @@ public class AdminSpeakerController extends JugController {
     PropertySheet propertySheet;
 
     @Requires
-    SpeakerDao speakerDao;
+    TalkDao talkDao;
 
-    public AdminSpeakerController(@Requires CartridgeSupport cartridgeSupport) {
+    public AdminTalkController(@Requires CartridgeSupport cartridgeSupport) {
         super(cartridgeSupport);
     }
 
@@ -61,15 +59,15 @@ public class AdminSpeakerController extends JugController {
 
     @Route(method = HttpMethod.GET, uri = "/{id}")
     public Result speaker(@Parameter("id") Long id) throws InvocationTargetException, ClassNotFoundException, IntrospectionException, IllegalAccessException {
-        Speaker editedSpeaker = Speaker.build(speakerDao.findById(id));
-        return template(template).withPropertySheet(propertySheet.getRenderable(this, editedSpeaker)).render();
+        Talk editedTalk = Talk.build(talkDao.findById(id));
+        return template(template).withPropertySheet(propertySheet.getRenderable(this, editedTalk)).render();
 
     }
 
     @Route(method = HttpMethod.POST, uri = "/{id}")
-    public Result saveSpeaker(@Parameter("id") Long id, @Body Speaker speaker) throws InvocationTargetException, ClassNotFoundException, IntrospectionException, IllegalAccessException {
-        speakerDao.update(speaker.into(new org.montpellierjug.store.jooq.tables.pojos.Speaker()));
-        return redirect("/admin/speaker/" + id);
+    public Result saveSpeaker(@Parameter("id") Long id, @Body Talk talk) throws InvocationTargetException, ClassNotFoundException, IntrospectionException, IllegalAccessException {
+        talkDao.update(talk.into(new org.montpellierjug.store.jooq.tables.pojos.Talk()));
+        return redirect("/admin/talk/" + id);
     }
 
 }
