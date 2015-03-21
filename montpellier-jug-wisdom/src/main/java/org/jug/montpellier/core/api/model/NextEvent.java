@@ -17,6 +17,7 @@ public class NextEvent {
 
     public Long id;
     public String title;
+    public Boolean open;
     public String description;
     public String location;
     public String registrationurl;
@@ -25,21 +26,26 @@ public class NextEvent {
     public NextEventPartner partner;
     public List<NextEventSpeaker> speakers;
 
+    public static NextEvent fromPojo(Event eventPojo) {
+        return fromPojo(eventPojo, null, null);
+    }
+
     public static NextEvent fromPojo(Event eventPojo, List<Speaker> speakersPojo, Eventpartner partnerPojo) {
         NextEvent event = new NextEvent();
         event.id = eventPojo.getId();
         event.title = eventPojo.getTitle();
+        event.open = eventPojo.getOpen();
         event.description = eventPojo.getDescription();
         event.location = eventPojo.getLocation();
         event.registrationurl = eventPojo.getRegistrationurl();
         event.capicity = eventPojo.getCapacity();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(eventPojo.getDate().getTime());
-        event.date = DateFormat.getDateInstance(DateFormat.LONG, Locale.FRANCE).format(calendar.getTime());
+        event.date = DateFormat.getDateInstance(DateFormat.LONG, Locale.FRANCE).format(eventPojo.getDate());
 
         event.speakers = new ArrayList<>();
-        for(Speaker speaker : speakersPojo) {
-            event.speakers.add(NextEventSpeaker.fromPojo(speaker));
+        if(speakersPojo != null) {
+            for (Speaker speaker : speakersPojo) {
+                event.speakers.add(NextEventSpeaker.fromPojo(speaker));
+            }
         }
 
         if(partnerPojo != null) {
