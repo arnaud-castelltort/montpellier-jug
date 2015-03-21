@@ -218,6 +218,8 @@
               <pojos>true</pojos>
               <daos>true</daos>
               <fluentSetters>true</fluentSetters>
+              <validationAnnotations>true</validationAnnotations>
+              <interfaces>true</interfaces>
             </generate>
           </generator>
 

@@ -14,19 +14,19 @@ import org.wisdom.api.templates.Template;
 @Component
 @Provides(specifications = EditorService.class)
 @Instantiate
-public class StringEditorService implements EditorService {
+public class LongEditorService implements EditorService {
 
-    @View("editors/base/string")
+    @View("editors/base/long")
     Template template;
 
     @Override
     public Class<? extends Object> getEditedType() {
-        return  String.class;
+        return  Long.class;
     }
 
     @Override
     public Editor createFormEditor(Object model) {
-        StringEditor editor = new StringEditor(template, this);
+        LongEditor editor = new LongEditor(template, this);
         editor.setValue(model);
         return editor;
     }

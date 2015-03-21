@@ -50,13 +50,13 @@ public class NewsController extends JugController {
 
     List<News> buildNews() {
         return Arrays.asList(
-            new News("Nouveau site", "Trop bien ;)")
+            new News("Nouveau site", "Trop trop bien ;)")
         );
     }
     
     @Route(method = HttpMethod.GET, uri = "/")
     public Result news() {
-        return renderRoot(template, "news", buildNews());
+        return template(template).withParam("news", buildNews()).render();
     }
 
 }

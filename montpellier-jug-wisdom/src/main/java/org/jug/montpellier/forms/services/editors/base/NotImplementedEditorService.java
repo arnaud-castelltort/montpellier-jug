@@ -1,12 +1,11 @@
 package org.jug.montpellier.forms.services.editors.base;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Instantiate;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.jug.montpellier.forms.apis.Editor;
 import org.jug.montpellier.forms.apis.EditorService;
-import org.wisdom.api.annotations.View;
-import org.wisdom.api.templates.Template;
 
 /**
  * Created by Eric Taix on 08/03/2015.
@@ -14,21 +13,16 @@ import org.wisdom.api.templates.Template;
 @Component
 @Provides(specifications = EditorService.class)
 @Instantiate
-public class StringEditorService implements EditorService {
-
-    @View("editors/base/string")
-    Template template;
+public class NotImplementedEditorService implements EditorService {
 
     @Override
     public Class<? extends Object> getEditedType() {
-        return  String.class;
+        return null;
     }
 
     @Override
     public Editor createFormEditor(Object model) {
-        StringEditor editor = new StringEditor(template, this);
-        editor.setValue(model);
-        return editor;
+        throw new NotImplementedException("NullEditorService should not be used");
     }
 
 }

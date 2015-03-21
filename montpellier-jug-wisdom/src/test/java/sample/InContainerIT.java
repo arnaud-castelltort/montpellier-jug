@@ -40,21 +40,21 @@ public class InContainerIT extends WisdomTest {
      * inject (in tests) the bundle context, controllers, services and
      * templates.
      */
-    @Inject
-    WelcomeController controller;
+//    @Inject
+//    WelcomeController controller;
 
     @Test
     public void testWelcomePage() {
         // Wrap your controller invocation so you can configure the HTTP
         // Context (parameter, header...)
-        Action.ActionResult result = action(new Invocation() {
-            @Override
-            public Result invoke() throws Throwable {
-                return controller.welcome();
-            }
-        }).header("foo", "bar").invoke();
+   //     Action.ActionResult result = action(new Invocation() {
+  //          @Override
+        //          public Result invoke() throws Throwable {
+        //               return controller.welcome();
+//            }
+//        }).header("foo", "bar").invoke();
 
-        assertThat(status(result)).isEqualTo(OK);
-        assertThat(toString(result)).contains("Wisdom");
+        //      assertThat(status(result)).isEqualTo(OK);
+        //  assertThat(toString(result)).contains("Wisdom");
     }
 }

@@ -4,6 +4,7 @@ import org.jug.montpellier.core.api.CartridgeSupport;
 import org.jug.montpellier.core.api.NextEventSupport;
 import org.jug.montpellier.core.api.PartnerSupport;
 import org.wisdom.api.DefaultController;
+import org.wisdom.api.http.Renderable;
 import org.wisdom.api.http.Result;
 import org.wisdom.api.templates.Template;
 
@@ -13,6 +14,7 @@ import java.util.Map;
 public class JugController extends DefaultController {
 
     public static final String CARTRIDGES = "cartridges";
+    public static final String PROPERTY_SHEET = "propertysheet";
     public static final String NEXT_EVENT = "nextEvent";
     public static final String PARTNERS = "partners";
 
@@ -41,24 +43,39 @@ public class JugController extends DefaultController {
     private final NextEventSupport nextEventSupport;
     private final PartnerSupport partnerSupport;
 
-    public Result renderRoot(Template template, Object...params) {
-
-        Map<String, Object> paramsMap = new HashMap<>();
-
-        paramsMap.put(CARTRIDGES, cartridgeSupport.cartridges());
-
-        for (int i = 0; i < params.length; i+=2)
-            paramsMap.put((String)params[i], params[i+1]);
-
-        if(nextEventSupport != null) {
-            paramsMap.put(NEXT_EVENT, nextEventSupport.getNextEvent());
-        }
-
-        if(partnerSupport != null) {
-            paramsMap.put(PARTNERS, partnerSupport.getPartners());
-        }
-
-        return ok(render(template, paramsMap));
+    public Templatable template(Template template) {
+        return new Templatable(template);
     }
 
+    public class Templatable {
+        private Map<String, Object> paramsMap = new HashMap<>();
+        private Template template;
+
+        public Templatable(Template template) {
+            this.template = template;
+        }
+
+        public Templatable withPropertySheet(Renderable propertySheetRenderable) {
+            paramsMap.put(PROPERTY_SHEET, propertySheetRenderable.content());
+            return this;
+        }
+
+        public Result render() {
+            paramsMap.put(CARTRIDGES, cartridgeSupport.cartridges());
+
+            if (nextEventSupport != null) {
+                paramsMap.put(NEXT_EVENT, nextEventSupport.getNextEvent());
+            }
+
+            if (partnerSupport != null) {
+                paramsMap.put(PARTNERS, partnerSupport.getPartners());
+            }
+            return JugController.ok(JugController.this.render(template, paramsMap));
+        }
+
+        public Templatable withParam(String paramKey, Object paramValue) {
+            paramsMap.put(paramKey, paramValue);
+            return this;
+        }
+    }
 }

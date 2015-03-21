@@ -68,7 +68,7 @@ public class HomeController extends JugController {
         for(org.montpellierjug.store.jooq.tables.pojos.Event eventPojo : eventsPojo) {
             events.add(NextEvent.fromPojo(eventPojo));
         }
-        return renderRoot(template, "events", events);
+        return template(template).withParam("events", events).render();
     }
 
 }
