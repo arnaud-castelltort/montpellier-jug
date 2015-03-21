@@ -1,14 +1,13 @@
-package org.jug.montpellier.forms.services.impl;
+package org.jug.montpellier.forms.services;
 
 import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Instantiate;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
-import org.jug.montpellier.forms.services.EditorRegistry;
-import org.jug.montpellier.forms.services.RenderableProperty;
-import org.jug.montpellier.forms.services.PropertySheet;
-import org.jug.montpellier.forms.models.PropertyDefinition;
-import org.jug.montpellier.forms.services.Editor;
+import org.jug.montpellier.forms.apis.EditorRegistry;
+import org.jug.montpellier.forms.annotations.RenderableProperty;
+import org.jug.montpellier.forms.apis.PropertySheet;
+import org.jug.montpellier.forms.apis.Editor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wisdom.api.Controller;
@@ -17,7 +16,6 @@ import org.wisdom.api.http.Renderable;
 import org.wisdom.api.templates.Template;
 
 import java.beans.*;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -29,16 +27,16 @@ import java.util.stream.Collectors;
 @Component
 @Provides(specifications = PropertySheet.class)
 @Instantiate
-public class PropertySheetImpl implements PropertySheet {
+public class DefaultPropertySheet implements PropertySheet {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PropertySheetImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultPropertySheet.class);
 
     @Requires
     EditorRegistry editorRegistry;
     @View("editors/propertysheet")
     Template template;
 
-    public PropertySheetImpl() {
+    public DefaultPropertySheet() {
     }
 
     @Override

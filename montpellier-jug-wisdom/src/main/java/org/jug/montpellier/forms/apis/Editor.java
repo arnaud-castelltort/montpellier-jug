@@ -1,6 +1,6 @@
-package org.jug.montpellier.forms.services;
+package org.jug.montpellier.forms.apis;
 
-import org.jug.montpellier.forms.models.PropertyDefinition;
+import org.jug.montpellier.forms.services.PropertyDefinition;
 import org.wisdom.api.Controller;
 import org.wisdom.api.http.Renderable;
 

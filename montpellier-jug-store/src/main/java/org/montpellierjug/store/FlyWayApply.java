@@ -19,12 +19,13 @@ public class FlyWayApply {
     public void init(){
         Flyway flyway = new Flyway();
         flyway.setDataSource(dataSource);
+
         flyway.setLocations("db.migration");
 
         flyway.setClassLoader(Flyway.class.getClassLoader());
 
         flyway.setSchemas("jug");
-
+        flyway.repair();
         flyway.migrate();
 
     }

@@ -1,10 +1,10 @@
-package org.jug.montpellier.forms.services.impl;
+package org.jug.montpellier.forms.services;
 
 import org.apache.felix.ipojo.annotations.*;
-import org.jug.montpellier.forms.services.Editor;
-import org.jug.montpellier.forms.services.EditorRegistry;
-import org.jug.montpellier.forms.services.EditorService;
-import org.jug.montpellier.forms.services.RenderableProperty;
+import org.jug.montpellier.forms.apis.Editor;
+import org.jug.montpellier.forms.apis.EditorRegistry;
+import org.jug.montpellier.forms.apis.EditorService;
+import org.jug.montpellier.forms.annotations.RenderableProperty;
 import org.jug.montpellier.forms.services.editors.base.NotImplementedEditorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +18,9 @@ import java.util.Map;
 @Component
 @Provides(specifications = EditorRegistry.class)
 @Instantiate
-public class EditorRegistryImpl implements EditorRegistry {
+public class DefaultEditorRegistry implements EditorRegistry {
 
-    private static Logger logger = LoggerFactory.getLogger(EditorRegistryImpl.class);
+    private static Logger logger = LoggerFactory.getLogger(DefaultEditorRegistry.class);
 
     private Map<Class, EditorService> formEditorByEditedType = new HashMap<>();
     private Map<Class, EditorService> formEditorByClass = new HashMap<>();

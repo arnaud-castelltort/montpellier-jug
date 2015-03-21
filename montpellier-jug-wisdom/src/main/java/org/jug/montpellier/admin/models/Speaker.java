@@ -1,6 +1,6 @@
 package org.jug.montpellier.admin.models;
 
-import org.jug.montpellier.forms.services.RenderableProperty;
+import org.jug.montpellier.forms.annotations.RenderableProperty;
 import org.jug.montpellier.forms.services.editors.extended.BigStringEditorService;
 import org.jug.montpellier.forms.services.editors.extended.ImageUrlEditorService;
 import org.montpellierjug.store.jooq.tables.interfaces.ISpeaker;
@@ -35,7 +35,7 @@ public class Speaker implements ISpeaker {
     private String description;
 
     @RenderableProperty(displayLabel = "JUG member")
-    private Boolean jugMember;
+    private boolean jugMember;
 
     @RenderableProperty(displayLabel = "Role in the JUG")
     private String memberfct;
@@ -139,7 +139,7 @@ public class Speaker implements ISpeaker {
 
     @Override
     public ISpeaker setUrl(String value) {
-        this.url = url;
+        this.url = value;
         return this;
     }
 

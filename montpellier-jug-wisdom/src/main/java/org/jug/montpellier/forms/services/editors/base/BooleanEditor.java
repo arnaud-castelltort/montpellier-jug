@@ -1,8 +1,8 @@
 package org.jug.montpellier.forms.services.editors.base;
 
-import org.jug.montpellier.forms.models.PropertyDefinition;
-import org.jug.montpellier.forms.services.Editor;
-import org.jug.montpellier.forms.services.EditorService;
+import org.jug.montpellier.forms.services.PropertyDefinition;
+import org.jug.montpellier.forms.apis.Editor;
+import org.jug.montpellier.forms.apis.EditorService;
 import org.wisdom.api.Controller;
 import org.wisdom.api.http.Renderable;
 import org.wisdom.api.templates.Template;

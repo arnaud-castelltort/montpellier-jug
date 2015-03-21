@@ -4,8 +4,8 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Instantiate;
 import org.apache.felix.ipojo.annotations.Provides;
-import org.jug.montpellier.forms.services.Editor;
-import org.jug.montpellier.forms.services.EditorService;
+import org.jug.montpellier.forms.apis.Editor;
+import org.jug.montpellier.forms.apis.EditorService;
 
 /**
  * Created by Eric Taix on 08/03/2015.
