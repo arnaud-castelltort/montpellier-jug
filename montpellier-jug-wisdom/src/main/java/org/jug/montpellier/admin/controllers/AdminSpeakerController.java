@@ -20,10 +20,12 @@
 package org.jug.montpellier.admin.controllers;
 
 import org.apache.felix.ipojo.annotations.Requires;
-import org.jug.montpellier.admin.models.Speaker;
+import org.jooq.DSLContext;
+import org.jug.montpellier.models.Speaker;
 import org.jug.montpellier.core.api.CartridgeSupport;
 import org.jug.montpellier.core.controller.JugController;
 import org.jug.montpellier.forms.apis.PropertySheet;
+import org.montpellierjug.store.jooq.tables.Event;
 import org.montpellierjug.store.jooq.tables.daos.SpeakerDao;
 import org.wisdom.api.annotations.*;
 import org.wisdom.api.annotations.Controller;
@@ -43,6 +45,9 @@ public class AdminSpeakerController extends JugController implements org.wisdom.
 
     @Requires
     PropertySheet propertySheet;
+
+    @Requires
+    DSLContext dslContext;
 
     @Requires
     SpeakerDao speakerDao;
