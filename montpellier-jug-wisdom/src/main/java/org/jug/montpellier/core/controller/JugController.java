@@ -1,8 +1,6 @@
 package org.jug.montpellier.core.controller;
 
-import org.jug.montpellier.cartridges.news.models.News;
 import org.jug.montpellier.core.api.CartridgeSupport;
-import org.jug.montpellier.forms.services.PropertySheet;
 import org.jug.montpellier.core.api.NextEventSupport;
 import org.jug.montpellier.core.api.PartnerSupport;
 import org.wisdom.api.DefaultController;
@@ -11,7 +9,6 @@ import org.wisdom.api.http.Result;
 import org.wisdom.api.templates.Template;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class JugController extends DefaultController {

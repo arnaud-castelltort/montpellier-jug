@@ -199,7 +199,7 @@
             <driver>org.postgresql.Driver</driver>
             <url>jdbc:postgresql:jugbuild</url>
             <user>jug</user>
-            <password>sofree</password>
+            <password>jug</password>
           </jdbc>
 
           <!-- Generator parameters -->

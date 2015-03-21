@@ -3,8 +3,8 @@ package org.jug.montpellier.forms.services.editors.base;
 import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Instantiate;
 import org.apache.felix.ipojo.annotations.Provides;
-import org.jug.montpellier.forms.services.Editor;
-import org.jug.montpellier.forms.services.EditorService;
+import org.jug.montpellier.forms.apis.Editor;
+import org.jug.montpellier.forms.apis.EditorService;
 import org.wisdom.api.annotations.View;
 import org.wisdom.api.templates.Template;
 

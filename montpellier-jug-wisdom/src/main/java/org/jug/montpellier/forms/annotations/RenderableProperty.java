@@ -1,5 +1,6 @@
-package org.jug.montpellier.forms.services;
+package org.jug.montpellier.forms.annotations;
 
+import org.jug.montpellier.forms.apis.EditorService;
 import org.jug.montpellier.forms.services.editors.base.NotImplementedEditorService;
 
 import java.lang.annotation.ElementType;

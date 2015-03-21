@@ -1,4 +1,6 @@
-package org.jug.montpellier.forms.services;
+package org.jug.montpellier.forms.apis;
+
+import org.jug.montpellier.forms.apis.Editor;
 
 /**
  * Created by Eric Taix on 08/03/2015.
@@ -7,7 +9,7 @@ public interface EditorService {
 
     /**
      * Returns the class which can be edited by the @{link Editor}.<br/>
-     * If an {@link Editor} overrides another one, it should returns null to avoid being used in common cases
+     * If an {@link org.jug.montpellier.forms.apis.Editor} overrides another one, it should returns null to avoid being used in common cases
      * @return
      */
     public Class<? extends Object> getEditedType();

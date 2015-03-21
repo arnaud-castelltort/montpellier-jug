@@ -1,4 +1,4 @@
-package org.jug.montpellier.forms.models;
+package org.jug.montpellier.forms.services;
 
 /**
  * Created by Eric Taix on 07/03/2015.

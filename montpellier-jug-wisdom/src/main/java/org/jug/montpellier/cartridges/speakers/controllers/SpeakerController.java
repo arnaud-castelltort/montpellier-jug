@@ -26,7 +26,7 @@ public class SpeakerController extends DefaultController{
     SpeakerDao speakerDao;
 
     @Route(method = HttpMethod.GET, uri = "/")
-    @Role("admin")
+  //  @Role("admin")
     public Result all(){
 
         return json().render(speakerDao.findAll()).with(Charset.defaultCharset());
