@@ -21,6 +21,7 @@ package org.jug.montpellier.admin.controllers;
 
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jug.montpellier.core.api.CartridgeSupport;
+import org.jug.montpellier.core.api.JugSupport;
 import org.jug.montpellier.core.controller.JugController;
 import org.jug.montpellier.forms.apis.PropertySheet;
 import org.jug.montpellier.models.Speaker;
@@ -47,8 +48,8 @@ public class AdminTalkController extends JugController {
     @Requires
     TalkDao talkDao;
 
-    public AdminTalkController(@Requires CartridgeSupport cartridgeSupport) {
-        super(cartridgeSupport);
+    public AdminTalkController(@Requires JugSupport jugSupport) {
+        super(jugSupport);
     }
 
     @Route(method = HttpMethod.GET, uri = "/")
