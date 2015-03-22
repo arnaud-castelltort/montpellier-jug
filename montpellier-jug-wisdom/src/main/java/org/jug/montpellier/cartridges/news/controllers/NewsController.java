@@ -22,6 +22,7 @@ package org.jug.montpellier.cartridges.news.controllers;
 import org.jug.montpellier.cartridges.news.models.News;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jug.montpellier.core.api.CartridgeSupport;
+import org.jug.montpellier.core.api.JugSupport;
 import org.jug.montpellier.core.api.NextEventSupport;
 import org.jug.montpellier.core.api.PartnerSupport;
 import org.jug.montpellier.core.controller.JugController;
@@ -44,8 +45,8 @@ public class NewsController extends JugController {
     @View("news")
     Template template;
 
-    public NewsController(@Requires CartridgeSupport cartridgeSupport, @Requires NextEventSupport nextEventSupport, @Requires PartnerSupport partnerSupport) {
-        super(cartridgeSupport, nextEventSupport, partnerSupport);
+    public NewsController(@Requires JugSupport jugSupport) {
+        super(jugSupport);
     }
 
     List<News> buildNews() {
