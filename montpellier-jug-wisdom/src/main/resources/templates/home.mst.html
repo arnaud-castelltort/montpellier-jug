@@ -1,5 +1,9 @@
 {{> layouts/header}}
 
+{{#nextEvent}}
+    {{> layouts/nextEventView}}
+{{/nextEvent}}
+
 <section id="last-events">
     <h2>Last events</h2>
     {{#events}}

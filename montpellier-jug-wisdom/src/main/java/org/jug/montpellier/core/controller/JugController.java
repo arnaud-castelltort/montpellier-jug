@@ -1,6 +1,7 @@
 package org.jug.montpellier.core.controller;
 
 import org.jug.montpellier.core.api.CartridgeSupport;
+import org.jug.montpellier.core.api.JugSupport;
 import org.jug.montpellier.core.api.NextEventSupport;
 import org.jug.montpellier.core.api.PartnerSupport;
 import org.wisdom.api.DefaultController;
@@ -18,30 +19,15 @@ public class JugController extends DefaultController {
     public static final String NEXT_EVENT = "nextEvent";
     public static final String PARTNERS = "partners";
 
+
+    private final JugSupport jugSupport;
+
     /**
      * Use this contructor to display a normal page with full menu
-     * @param cartridgeSupport
      */
-    public JugController(CartridgeSupport cartridgeSupport) {
-        this.cartridgeSupport = cartridgeSupport;
-        this.nextEventSupport = null;
-        this.partnerSupport = null;
+    public JugController(JugSupport jugSupport) {
+        this.jugSupport = jugSupport;
     }
-
-    /**
-     * Use this contructor to display a normal page with full menu and the next event at the top of your page
-     * @param cartridgeSupport all pages to display in menu
-     * @param nextEventSupport the next event to display
-     */
-    public JugController(CartridgeSupport cartridgeSupport, NextEventSupport nextEventSupport, PartnerSupport partnerSupport) {
-        this.cartridgeSupport = cartridgeSupport;
-        this.nextEventSupport = nextEventSupport;
-        this.partnerSupport = partnerSupport;
-    }
-
-    private final CartridgeSupport cartridgeSupport;
-    private final NextEventSupport nextEventSupport;
-    private final PartnerSupport partnerSupport;
 
     public Templatable template(Template template) {
         return new Templatable(template);
@@ -61,14 +47,14 @@ public class JugController extends DefaultController {
         }
 
         public Result render() {
-            paramsMap.put(CARTRIDGES, cartridgeSupport.cartridges());
+            paramsMap.put(CARTRIDGES, jugSupport.cartridges());
 
-            if (nextEventSupport != null) {
-                paramsMap.put(NEXT_EVENT, nextEventSupport.getNextEvent());
+            if (jugSupport != null) {
+                paramsMap.put(NEXT_EVENT, jugSupport.getNextEvent());
             }
 
-            if (partnerSupport != null) {
-                paramsMap.put(PARTNERS, partnerSupport.getPartners());
+            if (jugSupport != null) {
+                paramsMap.put(PARTNERS, jugSupport.getPartners());
             }
             return JugController.ok(JugController.this.render(template, paramsMap));
         }

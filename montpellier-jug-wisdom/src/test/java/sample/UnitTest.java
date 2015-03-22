@@ -19,20 +19,7 @@
  */
 package sample;
 
-import org.jug.montpellier.core.api.Cartridge;
-import org.jug.montpellier.core.api.CartridgeSupport;
-import org.jug.montpellier.core.api.NextEventSupport;
-import org.jug.montpellier.core.api.PartnerSupport;
-import org.jug.montpellier.core.api.impl.PartnerSupportImpl;
-import org.jug.montpellier.core.api.model.NextEvent;
 import org.junit.Test;
-import org.montpellierjug.store.jooq.tables.pojos.Yearpartner;
-import org.wisdom.api.http.Result;
-import org.wisdom.api.http.Status;
-import org.wisdom.api.templates.Template;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
