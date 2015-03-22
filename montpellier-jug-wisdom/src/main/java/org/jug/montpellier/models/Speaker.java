@@ -10,7 +10,7 @@ import org.montpellierjug.store.jooq.tables.interfaces.ISpeaker;
  */
 public class Speaker implements ISpeaker {
 
-    @RenderableProperty(displayLabel = "Id", visible = false)
+    @RenderableProperty(visible = false)
     private Long id;
 
     @RenderableProperty(displayLabel = "Fullname")
