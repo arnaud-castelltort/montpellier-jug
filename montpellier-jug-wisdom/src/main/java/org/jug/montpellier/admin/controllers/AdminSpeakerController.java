@@ -21,6 +21,7 @@ package org.jug.montpellier.admin.controllers;
 
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jooq.DSLContext;
+import org.jug.montpellier.core.api.JugSupport;
 import org.jug.montpellier.models.Speaker;
 import org.jug.montpellier.core.api.CartridgeSupport;
 import org.jug.montpellier.core.controller.JugController;
@@ -47,13 +48,10 @@ public class AdminSpeakerController extends JugController implements org.wisdom.
     PropertySheet propertySheet;
 
     @Requires
-    DSLContext dslContext;
-
-    @Requires
     SpeakerDao speakerDao;
 
-    public AdminSpeakerController(@Requires CartridgeSupport cartridgeSupport) {
-        super(cartridgeSupport);
+    public AdminSpeakerController(@Requires JugSupport jugSupport) {
+        super(jugSupport);
     }
 
     @Route(method = HttpMethod.GET, uri = "/")

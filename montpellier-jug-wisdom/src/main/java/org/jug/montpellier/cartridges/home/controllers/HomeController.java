@@ -22,6 +22,7 @@ package org.jug.montpellier.cartridges.home.controllers;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jooq.DSLContext;
 import org.jug.montpellier.core.api.CartridgeSupport;
+import org.jug.montpellier.core.api.JugSupport;
 import org.jug.montpellier.core.api.NextEventSupport;
 import org.jug.montpellier.core.api.PartnerSupport;
 import org.jug.montpellier.core.api.model.NextEvent;
@@ -50,8 +51,8 @@ public class HomeController extends JugController {
     @Requires
     DSLContext dslContext;
 
-    public HomeController(@Requires CartridgeSupport cartridgeSupport, @Requires NextEventSupport nextEventSupport, @Requires PartnerSupport partnerSupport) {
-        super(cartridgeSupport, nextEventSupport, partnerSupport);
+    public HomeController(@Requires JugSupport jugSupport) {
+        super(jugSupport);
     }
 
     @Route(method = HttpMethod.GET, uri = "")
