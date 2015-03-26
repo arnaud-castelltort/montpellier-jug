@@ -1,6 +1,6 @@
 package org.jug.montpellier.forms.services.editors.base;
 
-import org.jug.montpellier.forms.services.PropertyDefinition;
+import org.jug.montpellier.forms.models.PropertyValue;
 import org.jug.montpellier.forms.apis.Editor;
 import org.jug.montpellier.forms.apis.EditorService;
 import org.wisdom.api.Controller;
@@ -15,17 +15,17 @@ import java.util.Map;
  */
 public class StringEditor extends BaseEditor implements Editor {
 
-    private final Template template;
+    private final Template editorTemplate;
     private String value;
 
-    public StringEditor(Template template, EditorService factory) {
-        super(factory);
-        this.template = template;
+    public StringEditor(Template editorTemplate, Template viewemplate, EditorService factory) {
+        super(factory, viewemplate);
+        this.editorTemplate = editorTemplate;
     }
 
     @Override
     public void setValue(Object value) {
-        setAsText((String)value);
+        this.value = (String)value;
     }
 
     @Override
@@ -39,14 +39,9 @@ public class StringEditor extends BaseEditor implements Editor {
     }
 
     @Override
-    public void setAsText(String text) throws IllegalArgumentException {
-        this.value = text;
-    }
-
-    @Override
-    public Renderable getCustomEditor(Controller controller, PropertyDefinition property) {
+    public Renderable getEditor(Controller controller, PropertyValue property) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("property", property);
-        return template.render(controller, parameters);
+        return editorTemplate.render(controller, parameters);
     }
 }

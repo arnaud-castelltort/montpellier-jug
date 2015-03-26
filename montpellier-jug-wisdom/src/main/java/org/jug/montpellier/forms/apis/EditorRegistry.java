@@ -1,6 +1,6 @@
 package org.jug.montpellier.forms.apis;
 
-import org.jug.montpellier.forms.annotations.RenderableProperty;
+import org.jug.montpellier.forms.annotations.Property;
 
 /**
  * Manages FormEditor and property type relationship. FormEditor are registered by OSGi injection
@@ -12,5 +12,5 @@ public interface EditorRegistry {
      * Try to create a {@link org.jug.montpellier.forms.apis.Editor} instance according
      * to the object type. May return null if no suitable Editor could be found
      */
-    public Editor createEditor(Object field, Class<?> fieldClass, RenderableProperty fieldRenderableProperty) throws ClassNotFoundException;
+    public Editor createEditor(Object field, Class<?> fieldClass, Property fieldProperty) throws ClassNotFoundException;
 }

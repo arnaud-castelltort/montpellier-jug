@@ -4,10 +4,12 @@ import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Instantiate;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
-import org.jug.montpellier.forms.apis.EditorRegistry;
+import org.jug.montpellier.forms.annotations.ListView;
 import org.jug.montpellier.forms.annotations.Property;
-import org.jug.montpellier.forms.apis.PropertySheet;
 import org.jug.montpellier.forms.apis.Editor;
+import org.jug.montpellier.forms.apis.EditorRegistry;
+import org.jug.montpellier.forms.models.ListViewCell;
+import org.jug.montpellier.forms.models.ListViewRow;
 import org.jug.montpellier.forms.models.PropertyValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,36 +18,40 @@ import org.wisdom.api.annotations.View;
 import org.wisdom.api.http.Renderable;
 import org.wisdom.api.templates.Template;
 
-import java.beans.*;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Created by Eric Taix on 07/03/2015.
+ * Created by Eric Taix on 24/03/15.
  */
 @Component
-@Provides(specifications = PropertySheet.class)
+@Provides(specifications = org.jug.montpellier.forms.apis.ListView.class)
 @Instantiate
-public class DefaultPropertySheet implements PropertySheet {
+public class DefaultListView implements org.jug.montpellier.forms.apis.ListView {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DefaultPropertySheet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultListView.class);
 
     @Requires
     EditorRegistry editorRegistry;
-    @View("editors/propertysheet")
+    @View("editors/listview")
     Template template;
 
-    public DefaultPropertySheet() {
-    }
-
     @Override
-    public Renderable getRenderable(Controller controller, Object object) throws IntrospectionException, InvocationTargetException, IllegalAccessException, ClassNotFoundException {
-        if (object != null) {
-            List<PropertyValue> defs = Arrays.asList(object.getClass().getDeclaredFields()).stream().map((Field field) -> {
-                field.setAccessible(true);
+    public <T extends Object> Renderable getRenderable(Controller controller, List<T> objects, Class<T> objectClass) throws Exception {
+        ListView annotation = objectClass.getAnnotation(ListView.class);
+        List<String> columns = Arrays.asList(annotation.columns());
+
+        List<ListViewRow> listViewRows = objects.stream().map((final T object) -> {
+            ListViewRow row = new ListViewRow();
+            row.cells = columns.stream().map((String column) -> {
+                ListViewCell cell = new ListViewCell();
                 try {
+                    Field field = object.getClass().getDeclaredField(column);
+                    field.setAccessible(true);
                     Property property = field.getAnnotation(Property.class);
                     Editor editor = editorRegistry.createEditor(field.get(object), field.getType(), property);
                     if (editor != null) {
@@ -57,20 +63,20 @@ public class DefaultPropertySheet implements PropertySheet {
                         propertyValue.valueAsText = editor.getAsText();
                         propertyValue.editorName = editor.service().getClass().getSimpleName().toLowerCase();
                         propertyValue.visible = property != null ? property.visible() : propertyValue.visible;
-                        propertyValue.editor = editor.getEditor(controller, propertyValue).content();
-                        return propertyValue;
+                        propertyValue.editor = editor.getView(controller, propertyValue).content();
+                        cell.content = propertyValue.editor;
                     }
-                } catch (Exception ex) {
-                    LOG.warn("Unable to retrieve Editor for field " + field + " due to an error", ex);
+                } catch (NoSuchFieldException | ClassNotFoundException | IllegalAccessException e) {
+                    cell.content = "error";
                 }
-                return null;
-
+                return cell;
             }).collect(Collectors.toList());
+            return row;
+        }).collect(Collectors.toList());
 
-            Map<String, Object> parameters = new HashMap<>();
-            parameters.put("properties", defs);
-            return template.render(controller, parameters);
-        }
-        return null;
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("rows", listViewRows);
+        return template.render(controller, parameters);
     }
+
 }

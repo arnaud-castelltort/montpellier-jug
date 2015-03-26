@@ -1,6 +1,6 @@
 package org.jug.montpellier.models;
 
-import org.jug.montpellier.forms.annotations.RenderableProperty;
+import org.jug.montpellier.forms.annotations.Property;
 import org.jug.montpellier.forms.services.editors.extended.BigStringEditorService;
 import org.jug.montpellier.forms.services.editors.extended.DateEditorService;
 import org.jug.montpellier.forms.services.editors.extended.ImageUrlEditorService;
@@ -14,19 +14,19 @@ import java.sql.Timestamp;
  */
 public class Yearpartner implements IYearpartner {
 
-    @RenderableProperty(visible = false)
+    @Property(visible = false)
     private Long id;
-    @RenderableProperty(displayLabel = "Partner's name")
+    @Property(displayLabel = "Partner's name")
     private String name;
-    @RenderableProperty(displayLabel = "Logo", description="You can also copy/paste a base64 image", editorService = ImageUrlEditorService.class)
+    @Property(displayLabel = "Logo", description="You can also copy/paste a base64 image", editorService = ImageUrlEditorService.class)
     private String logourl;
-    @RenderableProperty(displayLabel = "Web Site", editorService = WebSiteUrlEditorService.class)
+    @Property(displayLabel = "Web Site", editorService = WebSiteUrlEditorService.class)
     private String url;
-    @RenderableProperty(displayLabel = "Description", editorService = BigStringEditorService.class)
+    @Property(displayLabel = "Description", editorService = BigStringEditorService.class)
     private String description;
-    @RenderableProperty(displayLabel = "Start date", editorService = DateEditorService.class)
+    @Property(displayLabel = "Start date", editorService = DateEditorService.class)
     private Timestamp startdate;
-    @RenderableProperty(displayLabel = "Stop date", editorService = DateEditorService.class)
+    @Property(displayLabel = "Stop date", editorService = DateEditorService.class)
     private Timestamp stopdate;
 
 

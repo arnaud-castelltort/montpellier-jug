@@ -18,7 +18,9 @@ import org.wisdom.api.templates.Template;
 public class TimeEditorService implements EditorService {
 
     @View("editors/extended/time")
-    Template template;
+    Template editorTemplate;
+    @View("views/base/string")
+    Template viewTemplate;
 
     @Override
     public Class<? extends Object> getEditedType() {
@@ -27,7 +29,7 @@ public class TimeEditorService implements EditorService {
 
     @Override
     public Editor createFormEditor(Object model) {
-        StringEditor editor = new StringEditor(template, this);
+        StringEditor editor = new StringEditor(editorTemplate, viewTemplate, this);
         editor.setValue(model);
         return editor;
     }

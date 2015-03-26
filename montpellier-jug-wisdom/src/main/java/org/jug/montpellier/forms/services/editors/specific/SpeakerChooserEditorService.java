@@ -6,7 +6,6 @@ import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jug.montpellier.forms.apis.Editor;
 import org.jug.montpellier.forms.apis.EditorService;
-import org.jug.montpellier.forms.services.editors.base.StringEditor;
 import org.montpellierjug.store.jooq.tables.daos.SpeakerDao;
 import org.wisdom.api.annotations.View;
 import org.wisdom.api.templates.Template;
@@ -20,7 +19,9 @@ import org.wisdom.api.templates.Template;
 public class SpeakerChooserEditorService implements EditorService {
 
     @View("editors/specific/speakerchooser")
-    Template template;
+    Template editorTemplate;
+    @View("views/base/string")
+    Template viewTemplate;
 
     @Requires
     private SpeakerDao speakerDao;
@@ -32,9 +33,8 @@ public class SpeakerChooserEditorService implements EditorService {
 
     @Override
     public Editor createFormEditor(Object model) {
-        SpeakerChooserEditor editor = new SpeakerChooserEditor(template, this, speakerDao);
+        SpeakerChooserEditor editor = new SpeakerChooserEditor(editorTemplate, viewTemplate, this, speakerDao);
         editor.setValue(model);
         return editor;
     }
-
 }
