@@ -15,6 +15,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ListView {
 
+    String[] labels();
+
     String[] columns();
 
 }
