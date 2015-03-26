@@ -3,13 +3,14 @@ package org.jug.montpellier.models;
 import org.jug.montpellier.forms.annotations.ListView;
 import org.jug.montpellier.forms.annotations.Property;
 import org.jug.montpellier.forms.services.editors.extended.BigStringEditorService;
+import org.jug.montpellier.forms.services.editors.extended.EmailEditorService;
 import org.jug.montpellier.forms.services.editors.extended.ImageUrlEditorService;
 import org.montpellierjug.store.jooq.tables.interfaces.ISpeaker;
 
 /**
  * Created by Eric Taix on 09/03/2015.
  */
-@ListView(columns = {"photourl", "fullname","compan", "email"})
+@ListView(labels = {"", "Name", "Company", "Email"}, columns = {"photourl", "fullname","compan", "email"})
 public class Speaker implements ISpeaker {
 
     @Property(visible = false)
@@ -30,7 +31,7 @@ public class Speaker implements ISpeaker {
     @Property(displayLabel = "Personal Web site")
     private String personalurl;
 
-    @Property(displayLabel = "Email", description = "This email will not be shown")
+    @Property(displayLabel = "Email", description = "This email will not be shown", editorService = EmailEditorService.class)
     private String email;
 
     @Property(displayLabel = "Tell us about you", editorService = BigStringEditorService.class)

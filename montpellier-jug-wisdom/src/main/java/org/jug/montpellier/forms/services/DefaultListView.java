@@ -44,7 +44,6 @@ public class DefaultListView implements org.jug.montpellier.forms.apis.ListView 
     public <T extends Object> Renderable getRenderable(Controller controller, List<T> objects, Class<T> objectClass) throws Exception {
         ListView annotation = objectClass.getAnnotation(ListView.class);
         List<String> columns = Arrays.asList(annotation.columns());
-
         List<ListViewRow> listViewRows = objects.stream().map((final T object) -> {
             ListViewRow row = new ListViewRow();
             row.cells = columns.stream().map((String column) -> {
@@ -74,8 +73,11 @@ public class DefaultListView implements org.jug.montpellier.forms.apis.ListView 
             return row;
         }).collect(Collectors.toList());
 
+        List<String> labels = Arrays.asList(annotation.labels());
+
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("rows", listViewRows);
+        parameters.put("labels", labels);
         return template.render(controller, parameters);
     }
 
