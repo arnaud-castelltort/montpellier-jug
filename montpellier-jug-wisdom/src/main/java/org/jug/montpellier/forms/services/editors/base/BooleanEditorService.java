@@ -17,8 +17,9 @@ import org.wisdom.api.templates.Template;
 public class BooleanEditorService implements EditorService {
 
     @View("editors/base/boolean")
-    Template template;
-
+    Template editorTemplate;
+    @View("views/base/string")
+    Template viewTemplate;
 
     @Override
     public Class<? extends Object> getEditedType() {
@@ -27,7 +28,7 @@ public class BooleanEditorService implements EditorService {
 
     @Override
     public Editor createFormEditor(Object model) {
-        BooleanEditor editor = new BooleanEditor(template, this);
+        BooleanEditor editor = new BooleanEditor(editorTemplate, viewTemplate, this);
         editor.setValue(model);
         return editor;
     }

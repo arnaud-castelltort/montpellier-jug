@@ -22,10 +22,12 @@ package org.jug.montpellier.admin.controllers;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jooq.DSLContext;
 import org.jug.montpellier.core.api.JugSupport;
+import org.jug.montpellier.forms.apis.ListView;
 import org.jug.montpellier.models.Speaker;
 import org.jug.montpellier.core.api.CartridgeSupport;
 import org.jug.montpellier.core.controller.JugController;
 import org.jug.montpellier.forms.apis.PropertySheet;
+import org.montpellierjug.store.jooq.Tables;
 import org.montpellierjug.store.jooq.tables.Event;
 import org.montpellierjug.store.jooq.tables.daos.SpeakerDao;
 import org.wisdom.api.annotations.*;
@@ -36,6 +38,8 @@ import org.wisdom.api.templates.Template;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @Path("/admin/speaker")
@@ -46,17 +50,22 @@ public class AdminSpeakerController extends JugController {
 
     @Requires
     PropertySheet propertySheet;
+    @Requires
+    ListView listView;
 
     @Requires
     SpeakerDao speakerDao;
+    @Requires
+    DSLContext dslContext;
 
     public AdminSpeakerController(@Requires JugSupport jugSupport) {
         super(jugSupport);
     }
 
     @Route(method = HttpMethod.GET, uri = "/")
-    public Result home() {
-        return template(template).render();
+    public Result home() throws Exception {
+        List<Speaker> speakers = dslContext.selectFrom(Tables.SPEAKER).orderBy(org.montpellierjug.store.jooq.tables.Speaker.SPEAKER.FULLNAME.asc()).fetchInto(Speaker.class);
+        return template(template).withListview(listView.getRenderable(this, speakers, Speaker.class)).render();
     }
 
 

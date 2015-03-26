@@ -1,6 +1,6 @@
 package org.jug.montpellier.forms.services.editors.base;
 
-import org.jug.montpellier.forms.services.PropertyDefinition;
+import org.jug.montpellier.forms.models.PropertyValue;
 import org.jug.montpellier.forms.apis.Editor;
 import org.jug.montpellier.forms.apis.EditorService;
 import org.wisdom.api.Controller;
@@ -17,12 +17,12 @@ public class BooleanEditor extends BaseEditor implements Editor {
 
     private static final String TRUE = "true";
     private static final String FALSE = "false";
-    private final Template template;
+    private final Template editorTemplate;
     private Boolean value;
 
-    public BooleanEditor(Template template, EditorService service) {
-        super(service);
-        this.template = template;
+    public BooleanEditor(Template editorTemplate, Template viewTemplate, EditorService service) {
+        super(service, viewTemplate);
+        this.editorTemplate = editorTemplate;
     }
 
     @Override
@@ -41,14 +41,9 @@ public class BooleanEditor extends BaseEditor implements Editor {
     }
 
     @Override
-    public void setAsText(String text) throws IllegalArgumentException {
-        setValue(TRUE.equals(text));
-    }
-
-    @Override
-    public Renderable getCustomEditor(Controller controller, PropertyDefinition property) {
+    public Renderable getEditor(Controller controller, PropertyValue property) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("property", property);
-        return template.render(controller, parameters);
+        return editorTemplate.render(controller, parameters);
     }
 }
