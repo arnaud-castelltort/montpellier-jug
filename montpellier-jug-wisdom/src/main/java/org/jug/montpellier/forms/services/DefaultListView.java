@@ -46,34 +46,41 @@ public class DefaultListView implements org.jug.montpellier.forms.apis.ListView 
         List<String> columns = Arrays.asList(annotation.columns());
         List<ListViewRow> listViewRows = objects.stream().map((final T object) -> {
             ListViewRow row = new ListViewRow();
-            row.cells = columns.stream().map((String column) -> {
-                ListViewCell cell = new ListViewCell();
-                try {
-                    Field field = object.getClass().getDeclaredField(column);
-                    field.setAccessible(true);
-                    Property property = field.getAnnotation(Property.class);
-                    Editor editor = editorRegistry.createEditor(field.get(object), field.getType(), property);
-                    if (editor != null) {
-                        PropertyValue propertyValue = new PropertyValue();
-                        propertyValue.name = field.getName();
-                        propertyValue.displayname = property != null && property.displayLabel() != null && !property.displayLabel().isEmpty() ? property.displayLabel() : field.getName();
-                        propertyValue.description = property != null && property.description() != null && !property.description().isEmpty() ? property.description() : "";
-                        propertyValue.value = editor.getValue();
-                        propertyValue.valueAsText = editor.getAsText();
-                        propertyValue.editorName = editor.service().getClass().getSimpleName().toLowerCase();
-                        propertyValue.visible = property != null ? property.visible() : propertyValue.visible;
-                        propertyValue.editor = editor.getView(controller, propertyValue).content();
-                        cell.content = propertyValue.editor;
+            try {
+                Field idField = object.getClass().getDeclaredField(annotation.id());
+                idField.setAccessible(true);
+                row.id = idField.get(object);
+                row.cells = columns.stream().map((String column) -> {
+                    ListViewCell cell = new ListViewCell();
+                    try {
+                        Field field = object.getClass().getDeclaredField(column);
+                        field.setAccessible(true);
+                        Property property = field.getAnnotation(Property.class);
+                        Editor editor = editorRegistry.createEditor(field.get(object), field.getType(), property);
+                        if (editor != null) {
+                            PropertyValue propertyValue = new PropertyValue();
+                            propertyValue.name = field.getName();
+                            propertyValue.displayname = property != null && property.displayLabel() != null && !property.displayLabel().isEmpty() ? property.displayLabel() : field.getName();
+                            propertyValue.description = property != null && property.description() != null && !property.description().isEmpty() ? property.description() : "";
+                            propertyValue.value = editor.getValue();
+                            propertyValue.valueAsText = editor.getAsText();
+                            propertyValue.editorName = editor.service().getClass().getSimpleName().toLowerCase();
+                            propertyValue.visible = property != null ? property.visible() : propertyValue.visible;
+                            cell.content = editor.getView(controller, propertyValue).content();
+                        }
+                    } catch (NoSuchFieldException | ClassNotFoundException | IllegalAccessException e) {
+                        cell.content = "error";
                     }
-                } catch (NoSuchFieldException | ClassNotFoundException | IllegalAccessException e) {
-                    cell.content = "error";
-                }
-                return cell;
-            }).collect(Collectors.toList());
+                    return cell;
+                }).collect(Collectors.toList());
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                LOG.error("Error while getting id() for object: "+object, e);
+            }
             return row;
         }).collect(Collectors.toList());
 
         List<String> labels = Arrays.asList(annotation.labels());
+
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("rows", listViewRows);
