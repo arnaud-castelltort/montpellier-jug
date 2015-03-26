@@ -10,7 +10,7 @@
         </thead>
         <tbody>
         {{#rows}}
-        <tr>
+        <tr onclick="javascript:location.href='{{id}}'">
             {{#cells}}
             <td class="cell">{{{content}}}</td>
             {{/cells}}
@@ -18,8 +18,5 @@
         {{/rows}}
         </tbody>
     </table>
-
-
-
 </div>
 
