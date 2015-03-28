@@ -21,6 +21,8 @@ package org.jug.montpellier.admin.controllers;
 
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jooq.DSLContext;
+import org.jooq.SelectOrderByStep;
+import org.jooq.SelectWhereStep;
 import org.jug.montpellier.core.api.JugSupport;
 import org.jug.montpellier.forms.apis.ListView;
 import org.jug.montpellier.models.Speaker;
@@ -63,9 +65,13 @@ public class AdminSpeakerController extends JugController {
     }
 
     @Route(method = HttpMethod.GET, uri = "/")
-    public Result home() throws Exception {
-        List<Speaker> speakers = dslContext.selectFrom(Tables.SPEAKER).orderBy(org.montpellierjug.store.jooq.tables.Speaker.SPEAKER.FULLNAME.asc()).fetchInto(Speaker.class);
-        return template(template).withListview(listView.getRenderable(this, speakers, Speaker.class)).render();
+    public Result all(@QueryParameter("search") String search) throws Exception {
+        SelectOrderByStep selectStep = dslContext.selectFrom(Tables.SPEAKER);
+        if (search != null && !search.isEmpty()) {
+            selectStep = ((SelectWhereStep)selectStep).where(org.montpellierjug.store.jooq.tables.Speaker.SPEAKER.FULLNAME.likeIgnoreCase("%"+search+"%"));
+        }
+        List<Speaker> speakers = selectStep.orderBy(org.montpellierjug.store.jooq.tables.Speaker.SPEAKER.FULLNAME.asc()).fetchInto(Speaker.class);
+        return template(template).withListview(listView.getRenderable(this, speakers, Speaker.class)).withParam("search", search).render();
     }
 
 
@@ -79,7 +85,7 @@ public class AdminSpeakerController extends JugController {
     @Route(method = HttpMethod.POST, uri = "/{id}")
     public Result saveSpeaker(@Parameter("id") Long id, @Body Speaker speaker) throws InvocationTargetException, ClassNotFoundException, IntrospectionException, IllegalAccessException {
         speakerDao.update(speaker.into(new org.montpellierjug.store.jooq.tables.pojos.Speaker()));
-        return redirect("/admin/speaker/" + id);
+        return redirect(".");
     }
 
 }
