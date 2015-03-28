@@ -1,5 +1,14 @@
-<div class="panel panel-default">
-    <h1>Speakers</h1>
+<div class="listview-container panel panel-default">
+    <div class="header">
+        <h1>Speakers</h1>
+        <div id="search" class="input-group">
+            <input id="term" type="text" class="form-control" placeholder="Search for..." autofocus onFocus="this.select()" value="{{search}}">
+          <span class="input-group-btn">
+            <button id="search-button" class="btn btn-default" type="button" onclick="search()">Search</button>
+          </span>
+        </div>
+    </div>
+    {{#hasData}}
     <table class="table table-hover listview">
         <thead>
         <tr>
@@ -18,5 +27,30 @@
         {{/rows}}
         </tbody>
     </table>
+    {{/hasData}}
+    {{^hasData}}
+    <div class="no-result">
+        No result
+    </div>
+    {{/hasData}}
 </div>
+<script type="text/javascript">
+    function search() {
+        var el = document.getElementById("term");
+        location.href = "?search="+el.value;
+    }
+
+    if (document.layers) {
+        document.captureEvents(Event.KEYDOWN);
+    }
+
+    document.onkeydown = function (evt) {
+        var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
+        if (keyCode == 13) {
+           document.getElementById("search-button").click();
+        } else {
+            return true;
+        }
+    };
+</script>
 
