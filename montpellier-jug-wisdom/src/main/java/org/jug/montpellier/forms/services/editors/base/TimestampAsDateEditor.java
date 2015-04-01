@@ -2,7 +2,7 @@ package org.jug.montpellier.forms.services.editors.base;
 
 import org.jug.montpellier.forms.apis.Editor;
 import org.jug.montpellier.forms.apis.EditorService;
-import org.jug.montpellier.forms.services.PropertyDefinition;
+import org.jug.montpellier.forms.models.PropertyValue;
 import org.wisdom.api.Controller;
 import org.wisdom.api.http.Renderable;
 import org.wisdom.api.templates.Template;
@@ -17,12 +17,12 @@ import java.util.Map;
  */
 public class TimestampAsDateEditor extends BaseEditor implements Editor {
 
-    private final Template template;
+    private final Template editorTemplate;
     private Timestamp value;
 
-    public TimestampAsDateEditor(Template template, EditorService service) {
-        super(service);
-        this.template = template;
+    public TimestampAsDateEditor(Template editorTemplate, Template viewTemplate, EditorService service) {
+        super(service, viewTemplate);
+        this.editorTemplate = editorTemplate;
     }
 
     @Override
@@ -42,14 +42,9 @@ public class TimestampAsDateEditor extends BaseEditor implements Editor {
     }
 
     @Override
-    public void setAsText(String text) throws IllegalArgumentException {
-        this.value = Timestamp.valueOf(text);
-    }
-
-    @Override
-    public Renderable getCustomEditor(Controller controller, PropertyDefinition property) {
+    public Renderable getEditor(Controller controller, PropertyValue property) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("property", property);
-        return template.render(controller, parameters);
+        return editorTemplate.render(controller, parameters);
     }
 }

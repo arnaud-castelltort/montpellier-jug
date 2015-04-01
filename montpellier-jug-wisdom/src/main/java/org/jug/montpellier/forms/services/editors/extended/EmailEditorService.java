@@ -15,13 +15,12 @@ import org.wisdom.api.templates.Template;
 @Component
 @Provides(specifications = EditorService.class)
 @Instantiate
-public class WebSiteUrlEditorService implements EditorService {
+public class EmailEditorService implements EditorService {
 
-    @View("editors/extended/websiteurl")
+    @View("editors/extended/email")
     Template editorTemplate;
-    @View("views/base/string")
+    @View("views/extended/email")
     Template viewTemplate;
-
     @Override
     public Class<? extends Object> getEditedType() {
         return null;

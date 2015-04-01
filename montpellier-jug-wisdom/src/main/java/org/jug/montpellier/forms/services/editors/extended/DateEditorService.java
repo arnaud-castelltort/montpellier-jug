@@ -20,7 +20,9 @@ import java.util.Date;
 public class DateEditorService implements EditorService {
 
     @View("editors/extended/date")
-    Template template;
+    Template editorTemplate;
+    @View("views/base/string")
+    Template viewTemplate;
 
     @Override
     public Class<? extends Object> getEditedType() {
@@ -29,7 +31,7 @@ public class DateEditorService implements EditorService {
 
     @Override
     public Editor createFormEditor(Object model) {
-        TimestampAsDateEditor editor = new TimestampAsDateEditor(template, this);
+        TimestampAsDateEditor editor = new TimestampAsDateEditor(editorTemplate,viewTemplate, this);
         editor.setValue(model);
         return editor;
     }

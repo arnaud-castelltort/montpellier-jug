@@ -5,8 +5,11 @@ import org.apache.felix.ipojo.annotations.Instantiate;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.jug.montpellier.forms.apis.Editor;
 import org.jug.montpellier.forms.apis.EditorService;
+import org.jug.montpellier.forms.models.PropertyValue;
 import org.jug.montpellier.forms.services.editors.base.StringEditor;
+import org.wisdom.api.Controller;
 import org.wisdom.api.annotations.View;
+import org.wisdom.api.http.Renderable;
 import org.wisdom.api.templates.Template;
 
 /**
@@ -18,7 +21,9 @@ import org.wisdom.api.templates.Template;
 public class ImageUrlEditorService implements EditorService {
 
     @View("editors/extended/imageurl")
-    Template template;
+    Template editorTemplate;
+    @View("views/extended/imageurl")
+    Template viewTemplate;
 
     @Override
     public Class<? extends Object> getEditedType() {
@@ -27,7 +32,7 @@ public class ImageUrlEditorService implements EditorService {
 
     @Override
     public Editor createFormEditor(Object model) {
-        StringEditor editor = new StringEditor(template, this);
+        StringEditor editor = new StringEditor(editorTemplate, viewTemplate, this);
         editor.setValue(model);
         return editor;
     }

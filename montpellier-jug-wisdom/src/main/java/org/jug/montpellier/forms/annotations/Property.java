@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RenderableProperty {
+public @interface Property {
 
     /**
      * Defines if the property is rendered but visible or hidden. It's typically useful for primary key

@@ -46,6 +46,10 @@ public class JugController extends DefaultController {
             return this;
         }
 
+        public Templatable withListview(Renderable listViewtRenderable) {
+            paramsMap.put(PROPERTY_SHEET, listViewtRenderable.content());
+            return this;
+        }
         public Result render() {
             paramsMap.put(CARTRIDGES, jugSupport.cartridges());
 

@@ -1,6 +1,6 @@
 package org.jug.montpellier.forms.apis;
 
-import org.jug.montpellier.forms.services.PropertyDefinition;
+import org.jug.montpellier.forms.models.PropertyValue;
 import org.wisdom.api.Controller;
 import org.wisdom.api.http.Renderable;
 
@@ -18,10 +18,7 @@ public interface Editor {
      * @return The value of the property.  Primitive types such as "int" will
      * be wrapped as the corresponding object type such as "java.lang.Integer".
      */
-
     public Object getValue();
-
-    public void setValue(Object value);
 
     /**
      * Gets the property value as text.
@@ -34,21 +31,25 @@ public interface Editor {
     public String getAsText();
 
     /**
-     * Set the property value by parsing a given String.  May raise
-     * java.lang.IllegalArgumentException if either the String is
-     * badly formatted or if this kind of property can't be expressed
-     * as text.
-     *
-     * @param text The string to be parsed.
+     * Set the value
+     * @param value
      */
-    public void setAsText(String text) throws java.lang.IllegalArgumentException;
+    public void setValue(Object value);
 
     /**
-     * A PropertyEditor may choose to make available a full custom Renderable
+     * A PropertyEditor makes available a full custom Renderable
      * that edits its property value.
      *
      * @return A java.lang.String which determines the editor to use
      */
-    public Renderable getCustomEditor(Controller controller, PropertyDefinition property);
+    public Renderable getEditor(Controller controller, PropertyValue property);
+
+    /**
+     * A PropertyEditor makes available a full custom Renderable
+     * that displays its property value.
+     *
+     * @return A java.lang.String which determines the editor to use
+     */
+    public Renderable getView(Controller controller, PropertyValue property);
 
 }

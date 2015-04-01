@@ -5,9 +5,10 @@ import org.apache.felix.ipojo.annotations.Instantiate;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jug.montpellier.forms.apis.EditorRegistry;
-import org.jug.montpellier.forms.annotations.RenderableProperty;
+import org.jug.montpellier.forms.annotations.Property;
 import org.jug.montpellier.forms.apis.PropertySheet;
 import org.jug.montpellier.forms.apis.Editor;
+import org.jug.montpellier.forms.models.PropertyValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wisdom.api.Controller;
@@ -42,22 +43,22 @@ public class DefaultPropertySheet implements PropertySheet {
     @Override
     public Renderable getRenderable(Controller controller, Object object) throws IntrospectionException, InvocationTargetException, IllegalAccessException, ClassNotFoundException {
         if (object != null) {
-            List<PropertyDefinition> defs = Arrays.asList(object.getClass().getDeclaredFields()).stream().map((Field field) -> {
+            List<PropertyValue> defs = Arrays.asList(object.getClass().getDeclaredFields()).stream().map((Field field) -> {
                 field.setAccessible(true);
                 try {
-                    RenderableProperty renderableProperty = field.getAnnotation(RenderableProperty.class);
-                    Editor editor = editorRegistry.createEditor(field.get(object), field.getType(), renderableProperty);
+                    Property property = field.getAnnotation(Property.class);
+                    Editor editor = editorRegistry.createEditor(field.get(object), field.getType(), property);
                     if (editor != null) {
-                        PropertyDefinition propertyDefinition = new PropertyDefinition();
-                        propertyDefinition.name = field.getName();
-                        propertyDefinition.displayname = renderableProperty != null && renderableProperty.displayLabel() != null && !renderableProperty.displayLabel().isEmpty() ? renderableProperty.displayLabel() : field.getName();
-                        propertyDefinition.description = renderableProperty != null && renderableProperty.description() != null && !renderableProperty.description().isEmpty() ? renderableProperty.description() : "";
-                        propertyDefinition.value = editor.getValue();
-                        propertyDefinition.valueAsText = editor.getAsText();
-                        propertyDefinition.editor = editor.getCustomEditor(controller, propertyDefinition).content();
-                        propertyDefinition.editorName = editor.service().getClass().getSimpleName().toLowerCase();
-                        propertyDefinition.visible = renderableProperty != null ? renderableProperty.visible() : propertyDefinition.visible;
-                        return propertyDefinition;
+                        PropertyValue propertyValue = new PropertyValue();
+                        propertyValue.name = field.getName();
+                        propertyValue.displayname = property != null && property.displayLabel() != null && !property.displayLabel().isEmpty() ? property.displayLabel() : field.getName();
+                        propertyValue.description = property != null && property.description() != null && !property.description().isEmpty() ? property.description() : "";
+                        propertyValue.value = editor.getValue();
+                        propertyValue.valueAsText = editor.getAsText();
+                        propertyValue.editorName = editor.service().getClass().getSimpleName().toLowerCase();
+                        propertyValue.visible = property != null ? property.visible() : propertyValue.visible;
+                        propertyValue.editor = editor.getEditor(controller, propertyValue).content();
+                        return propertyValue;
                     }
                 } catch (Exception ex) {
                     LOG.warn("Unable to retrieve Editor for field " + field + " due to an error", ex);
@@ -71,10 +72,5 @@ public class DefaultPropertySheet implements PropertySheet {
             return template.render(controller, parameters);
         }
         return null;
-    }
-
-    @Override
-    public Object getContent(Controller controller, Object object) throws IllegalAccessException, IntrospectionException, InvocationTargetException, ClassNotFoundException {
-        return getRenderable(controller, object).content();
     }
 }

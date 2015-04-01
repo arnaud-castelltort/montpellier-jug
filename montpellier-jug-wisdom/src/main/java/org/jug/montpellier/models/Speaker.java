@@ -1,46 +1,49 @@
 package org.jug.montpellier.models;
 
-import org.jug.montpellier.forms.annotations.RenderableProperty;
+import org.jug.montpellier.forms.annotations.ListView;
+import org.jug.montpellier.forms.annotations.Property;
 import org.jug.montpellier.forms.services.editors.extended.BigStringEditorService;
+import org.jug.montpellier.forms.services.editors.extended.EmailEditorService;
 import org.jug.montpellier.forms.services.editors.extended.ImageUrlEditorService;
 import org.montpellierjug.store.jooq.tables.interfaces.ISpeaker;
 
 /**
  * Created by Eric Taix on 09/03/2015.
  */
+@ListView(labels = {"", "Name", "Company", "Email"}, columns = {"photourl", "fullname","compan", "email"})
 public class Speaker implements ISpeaker {
 
-    @RenderableProperty(visible = false)
+    @Property(visible = false)
     private Long id;
 
-    @RenderableProperty(displayLabel = "Fullname")
+    @Property(displayLabel = "Fullname")
     private String fullname;
 
-    @RenderableProperty(displayLabel = "Activity", description = "Main or opensource activity")
+    @Property(displayLabel = "Activity", description = "Main or opensource activity")
     private String activity;
 
-    @RenderableProperty(displayLabel = "Company", description = "Company or Opensource project")
+    @Property(displayLabel = "Company", description = "Company or Opensource project")
     private String compan;
 
-    @RenderableProperty(displayLabel = "Company Web site")
+    @Property(displayLabel = "Company Web site")
     private String url;
 
-    @RenderableProperty(displayLabel = "Personal Web site")
+    @Property(displayLabel = "Personal Web site")
     private String personalurl;
 
-    @RenderableProperty(displayLabel = "Email", description = "This email will not be shown")
+    @Property(displayLabel = "Email", description = "This email will not be shown", editorService = EmailEditorService.class)
     private String email;
 
-    @RenderableProperty(displayLabel = "Tell us about you", editorService = BigStringEditorService.class)
+    @Property(displayLabel = "Tell us about you", editorService = BigStringEditorService.class)
     private String description;
 
-    @RenderableProperty(displayLabel = "JUG member")
+    @Property(displayLabel = "JUG member")
     private boolean jugMember;
 
-    @RenderableProperty(displayLabel = "Role in the JUG")
+    @Property(displayLabel = "Role in the JUG")
     private String memberfct;
 
-    @RenderableProperty(displayLabel = "Photo URL", editorService = ImageUrlEditorService.class)
+    @Property(displayLabel = "Photo URL", editorService = ImageUrlEditorService.class)
     private String photourl;
 
     public static Speaker build(ISpeaker from) {
