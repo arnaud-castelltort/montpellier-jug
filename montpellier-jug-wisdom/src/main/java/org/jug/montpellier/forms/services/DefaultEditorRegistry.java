@@ -4,7 +4,7 @@ import org.apache.felix.ipojo.annotations.*;
 import org.jug.montpellier.forms.apis.Editor;
 import org.jug.montpellier.forms.apis.EditorRegistry;
 import org.jug.montpellier.forms.apis.EditorService;
-import org.jug.montpellier.forms.annotations.RenderableProperty;
+import org.jug.montpellier.forms.annotations.Property;
 import org.jug.montpellier.forms.services.editors.base.NotImplementedEditorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,10 +26,10 @@ public class DefaultEditorRegistry implements EditorRegistry {
     private Map<Class, EditorService> formEditorByClass = new HashMap<>();
 
     @Override
-    public Editor createEditor(Object field, Class<?> fieldClass, RenderableProperty renderableProperty) throws ClassNotFoundException {
+    public Editor createEditor(Object field, Class<?> fieldClass, Property property) throws ClassNotFoundException {
         EditorService factory = formEditorByEditedType.get(fieldClass);
-        if (renderableProperty != null && !renderableProperty.editorService().equals(NotImplementedEditorService.class)) {
-            factory = formEditorByClass.get(renderableProperty.editorService());
+        if (property != null && !property.editorService().equals(NotImplementedEditorService.class)) {
+            factory = formEditorByClass.get(property.editorService());
         }
         if (factory != null) {
             return factory.createFormEditor(field);

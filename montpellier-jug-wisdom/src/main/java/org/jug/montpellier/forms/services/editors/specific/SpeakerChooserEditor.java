@@ -2,10 +2,9 @@ package org.jug.montpellier.forms.services.editors.specific;
 
 import org.jug.montpellier.forms.apis.Editor;
 import org.jug.montpellier.forms.apis.EditorService;
-import org.jug.montpellier.forms.services.PropertyDefinition;
+import org.jug.montpellier.forms.models.PropertyValue;
 import org.jug.montpellier.forms.services.editors.base.BaseEditor;
 import org.montpellierjug.store.jooq.tables.daos.SpeakerDao;
-import org.montpellierjug.store.jooq.tables.pojos.Speaker;
 import org.wisdom.api.Controller;
 import org.wisdom.api.http.Renderable;
 import org.wisdom.api.templates.Template;
@@ -13,7 +12,6 @@ import org.wisdom.api.templates.Template;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -21,13 +19,13 @@ import java.util.stream.Collectors;
  */
 public class SpeakerChooserEditor  extends BaseEditor implements Editor {
 
-    private final Template template;
+    private final Template editorTemplate;
     private Long speakerId;
     private SpeakerDao speakerDao;
 
-    public SpeakerChooserEditor(Template template, EditorService factory, SpeakerDao speakerDao) {
-        super(factory);
-        this.template = template;
+    public SpeakerChooserEditor(Template editorTemplate, Template viewTemplate, EditorService factory, SpeakerDao speakerDao) {
+        super(factory, viewTemplate);
+        this.editorTemplate = editorTemplate;
         this.speakerDao = speakerDao;
     }
 
@@ -47,12 +45,7 @@ public class SpeakerChooserEditor  extends BaseEditor implements Editor {
     }
 
     @Override
-    public void setAsText(String text) throws IllegalArgumentException {
-        speakerId = Long.parseLong(text);
-    }
-
-    @Override
-    public Renderable getCustomEditor(Controller controller, PropertyDefinition property) {
+    public Renderable getEditor(Controller controller, PropertyValue property) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("property", property);
         List<SpeakerItem> items = speakerDao.findAll().stream()
@@ -66,7 +59,7 @@ public class SpeakerChooserEditor  extends BaseEditor implements Editor {
             .sorted((s1, s2) -> s1.fullname.compareTo(s2.fullname))
             .collect(Collectors.toList());
         parameters.put("speakers", items);
-        return template.render(controller, parameters);
+        return editorTemplate.render(controller, parameters);
     }
 
     public class SpeakerItem {

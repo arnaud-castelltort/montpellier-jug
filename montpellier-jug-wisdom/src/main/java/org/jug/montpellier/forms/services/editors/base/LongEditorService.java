@@ -17,7 +17,9 @@ import org.wisdom.api.templates.Template;
 public class LongEditorService implements EditorService {
 
     @View("editors/base/long")
-    Template template;
+    Template editorTemplate;
+    @View("views/base/string")
+    Template viewTemplate;
 
     @Override
     public Class<? extends Object> getEditedType() {
@@ -26,7 +28,7 @@ public class LongEditorService implements EditorService {
 
     @Override
     public Editor createFormEditor(Object model) {
-        LongEditor editor = new LongEditor(template, this);
+        LongEditor editor = new LongEditor(editorTemplate, viewTemplate, this);
         editor.setValue(model);
         return editor;
     }

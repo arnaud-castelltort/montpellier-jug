@@ -1,6 +1,6 @@
 package org.jug.montpellier.models;
 
-import org.jug.montpellier.forms.annotations.RenderableProperty;
+import org.jug.montpellier.forms.annotations.Property;
 import org.jug.montpellier.forms.services.editors.extended.BigStringEditorService;
 import org.jug.montpellier.forms.services.editors.specific.SpeakerChooserEditorService;
 import org.montpellierjug.store.jooq.tables.interfaces.ITalk;
@@ -10,17 +10,17 @@ import org.montpellierjug.store.jooq.tables.interfaces.ITalk;
  */
 public class Talk implements ITalk {
 
-    @RenderableProperty(visible = false)
+    @Property(visible = false)
     private Long id;
-    @RenderableProperty(displayLabel = "Title")
+    @Property(displayLabel = "Title")
     private String title;
-    @RenderableProperty(displayLabel = "Teaser", editorService = BigStringEditorService.class)
+    @Property(displayLabel = "Teaser", editorService = BigStringEditorService.class)
     private String teaser;
-    @RenderableProperty(displayLabel = "Start time")
+    @Property(displayLabel = "Start time")
     private String datetime;
     private Long eventid;
     private Integer orderinevent;
-    @RenderableProperty(displayLabel = "Speaker", editorService = SpeakerChooserEditorService.class)
+    @Property(displayLabel = "Speaker", editorService = SpeakerChooserEditorService.class)
     private Long speakerid;
 
     public static Talk build(ITalk from) {
