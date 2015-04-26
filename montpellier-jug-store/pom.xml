@@ -166,6 +166,19 @@
       </plugin>
 
       <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-ipojo-plugin</artifactId>
+        <version>${ipojo.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>ipojo-bundle</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
 
         <!-- Specify the maven code generator plugin -->
         <groupId>org.jooq</groupId>
