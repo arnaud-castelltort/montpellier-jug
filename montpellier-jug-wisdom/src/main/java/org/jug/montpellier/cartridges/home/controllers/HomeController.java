@@ -21,13 +21,10 @@ package org.jug.montpellier.cartridges.home.controllers;
 
 import org.apache.felix.ipojo.annotations.Requires;
 import org.jooq.DSLContext;
-import org.jug.montpellier.core.api.CartridgeSupport;
 import org.jug.montpellier.core.api.JugSupport;
-import org.jug.montpellier.core.api.NextEventSupport;
-import org.jug.montpellier.core.api.PartnerSupport;
-import org.jug.montpellier.core.api.model.NextEvent;
 import org.jug.montpellier.core.controller.JugController;
-import org.montpellierjug.store.jooq.tables.Event;
+import org.jug.montpellier.models.Event;
+import org.montpellierjug.store.jooq.tables.interfaces.IEvent;
 import org.wisdom.api.annotations.Controller;
 import org.wisdom.api.annotations.Path;
 import org.wisdom.api.annotations.Route;
@@ -37,7 +34,6 @@ import org.wisdom.api.http.Result;
 import org.wisdom.api.templates.Template;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -58,17 +54,14 @@ public class HomeController extends JugController {
     @Route(method = HttpMethod.GET, uri = "")
     public Result welcome() {
         Timestamp today = new Timestamp(Calendar.getInstance().getTime().getTime());
-        List<org.montpellierjug.store.jooq.tables.pojos.Event> eventsPojo = dslContext
-                .select().from(Event.EVENT)
-                .where(Event.EVENT.OPEN.equal(false))
-                .and(Event.EVENT.DATE.lessThan(today))
-                .orderBy(Event.EVENT.DATE.desc())
+        List<IEvent> eventsPojo = dslContext
+                .select().from(org.montpellierjug.store.jooq.tables.Event.EVENT)
+                .where(org.montpellierjug.store.jooq.tables.Event.EVENT.OPEN.equal(false))
+                .and(org.montpellierjug.store.jooq.tables.Event.EVENT.DATE.lessThan(today))
+                .orderBy(org.montpellierjug.store.jooq.tables.Event.EVENT.DATE.desc())
                 .limit(3)
                 .fetchInto(org.montpellierjug.store.jooq.tables.pojos.Event.class);
-        List<NextEvent> events = new ArrayList<>();
-        for(org.montpellierjug.store.jooq.tables.pojos.Event eventPojo : eventsPojo) {
-            events.add(NextEvent.fromPojo(eventPojo));
-        }
+        List<Event> events = Event.build(eventsPojo);
         return template(template).withParam("events", events).render();
     }
 

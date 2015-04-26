@@ -4,4 +4,52 @@
     {{> layouts/nextEventView}}
 {{/nextEvent}}
 
+<section id="main">
+    <nav>
+        <h2>Upcoming events</h2>
+        <ul>
+            {{#upcomingEvents}}
+            <li>
+                <a href="/events/{{id}}">{{title}}</a>
+                <span class="date">{{displayableDate}}</span>
+            </li>
+            {{/upcomingEvents}}
+            {{^upcomingEvents}}
+            <li><span class="date">Aucun event pour le moment.</span></li>
+            {{/upcomingEvents}}
+        </ul>
+        <h2>Past events</h2>
+        <ul>
+            {{#pastEvents}}
+            <li>
+                <a href="/events/{{id}}">{{title}}</a>
+                <span class="date">{{displayableDate}}</span>
+            </li>
+            {{/pastEvents}}
+        </ul>
+    </nav>
+    <article>
+        {{#currentEvent}}
+        <h2>Programme</h2>
+        {{#talks}}
+        <h3>{{datetime}} : {{title}}</h3>
+        {{#speaker}}
+        <p>Présenté par <a href="/speaker/{{id}}">{{fullname}}</a></p>
+        {{/speaker}}
+        <p>{{teaser}}</p>
+        {{/talks}}
+
+        <h2>Lieu</h2>
+        <p>{{location}}</p>
+        {{#if map}}
+        {{map}}
+        {{/if map}}
+
+        <h2>After</h2>
+        <p>A la fin de la soirée, une troisième mi-temps sera proposée dans un bar pour continuer à échanger et sympathiser </p>
+
+        {{/currentEvent}}
+    </article>
+</section>
+
 {{> layouts/footer}}
