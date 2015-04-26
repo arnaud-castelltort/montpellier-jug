@@ -1,0 +1,22 @@
+{{> layouts/header}}
+
+{{#nextEvent}}
+    {{> layouts/nextEventView}}
+{{/nextEvent}}
+
+<section id="members">
+    {{#members}}
+    <article>
+        <div class="member-photo">
+            <img alt="{{fullname}}" src="{{photourl}}" />
+        </div>
+        <div>
+            <h3><a href="/speaker/{{id}}">{{fullname}}</a> &nbsp; {{#memberfct}} <span class="member-fonction">({{memberfct}})</span> {{/memberfct}} </h3>
+            <span><a href="{{url}}" target="_blank">{{compan}}</a></span><br>
+           {{activity}}
+        </div>
+    </article>
+    {{/members}}
+</section>
+
+{{> layouts/footer}}
