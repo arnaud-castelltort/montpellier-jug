@@ -3,7 +3,11 @@ package org.jug.montpellier.models;
 import org.jug.montpellier.forms.annotations.Property;
 import org.jug.montpellier.forms.services.editors.extended.BigStringEditorService;
 import org.jug.montpellier.forms.services.editors.specific.SpeakerChooserEditorService;
+import org.montpellierjug.store.jooq.tables.interfaces.IEvent;
+import org.montpellierjug.store.jooq.tables.interfaces.ISpeaker;
 import org.montpellierjug.store.jooq.tables.interfaces.ITalk;
+
+import java.util.List;
 
 /**
  * Created by Eric Taix on 21/03/2015.
@@ -22,6 +26,8 @@ public class Talk implements ITalk {
     private Integer orderinevent;
     @Property(displayLabel = "Speaker", editorService = SpeakerChooserEditorService.class)
     private Long speakerid;
+    @Property(visible = false)
+    private ISpeaker speaker;
 
     public static Talk build(ITalk from) {
         Talk talk = new Talk();
@@ -121,5 +127,20 @@ public class Talk implements ITalk {
     public <E extends ITalk> E into(E into) {
         into.from(this);
         return into;
+    }
+
+    /**
+     * #########################
+     * ADDED TO POJO
+     * #########################
+     */
+
+    public ITalk setSpeaker(ISpeaker speaker) {
+        this.speaker = speaker;
+        return this;
+    }
+
+    public ISpeaker getSpeaker() {
+        return this.speaker;
     }
 }

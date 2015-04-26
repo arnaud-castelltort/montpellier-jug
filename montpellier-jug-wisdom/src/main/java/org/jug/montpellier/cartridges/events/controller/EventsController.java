@@ -20,25 +20,32 @@
 package org.jug.montpellier.cartridges.events.controller;
 
 import org.apache.felix.ipojo.annotations.Requires;
+import org.jooq.DSLContext;
+import org.jug.montpellier.cartridges.events.services.EventsService;
 import org.jug.montpellier.core.api.CartridgeSupport;
 import org.jug.montpellier.core.api.JugSupport;
 import org.jug.montpellier.core.api.NextEventSupport;
 import org.jug.montpellier.core.api.PartnerSupport;
 import org.jug.montpellier.core.controller.JugController;
+import org.jug.montpellier.models.Event;
 import org.montpellierjug.store.jooq.tables.daos.EventDao;
 import org.montpellierjug.store.jooq.tables.daos.EventpartnerDao;
 import org.montpellierjug.store.jooq.tables.daos.SpeakerDao;
 import org.montpellierjug.store.jooq.tables.daos.TalkDao;
-import org.montpellierjug.store.jooq.tables.pojos.Event;
-import org.wisdom.api.annotations.Controller;
-import org.wisdom.api.annotations.Path;
-import org.wisdom.api.annotations.Route;
-import org.wisdom.api.annotations.View;
+import org.montpellierjug.store.jooq.tables.interfaces.IEvent;
+import org.montpellierjug.store.jooq.tables.interfaces.ISpeaker;
+import org.montpellierjug.store.jooq.tables.interfaces.ITalk;
+import org.montpellierjug.store.jooq.tables.pojos.Talk;
+import org.wisdom.api.annotations.*;
 import org.wisdom.api.http.HttpMethod;
 import org.wisdom.api.http.Result;
 import org.wisdom.api.templates.Template;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @Path("/events")
@@ -46,9 +53,8 @@ public class EventsController extends JugController {
 
     @View("events")
     Template template;
-
     @Requires
-    EventDao eventDao;
+    EventsService eventsService;
 
     public EventsController(@Requires JugSupport jugSupport) {
         super(jugSupport);
@@ -56,8 +62,12 @@ public class EventsController extends JugController {
 
     @Route(method = HttpMethod.GET, uri = "/")
     public Result events() {
-        List<Event> events = eventDao.findAll();
-        return template(template).withParam("events", events).render();
+        return eventsService.renderEvents(template(template));
+    }
+
+    @Route(method = HttpMethod.GET, uri = "/{id}")
+    public Result event(@Parameter("id") Long id) {
+        return eventsService.renderEvents(template(template), id);
     }
 
 }

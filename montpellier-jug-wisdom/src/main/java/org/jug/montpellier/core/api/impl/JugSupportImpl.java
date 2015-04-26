@@ -3,14 +3,14 @@ package org.jug.montpellier.core.api.impl;
 import org.apache.felix.ipojo.annotations.*;
 import org.jooq.DSLContext;
 import org.jug.montpellier.core.api.Cartridge;
-import org.jug.montpellier.core.api.CartridgeSupport;
 import org.jug.montpellier.core.api.JugSupport;
-import org.jug.montpellier.core.api.NextEventSupport;
-import org.jug.montpellier.core.api.model.NextEvent;
-import org.montpellierjug.store.jooq.tables.daos.EventpartnerDao;
+import org.jug.montpellier.models.Event;
 import org.montpellierjug.store.jooq.tables.daos.SpeakerDao;
 import org.montpellierjug.store.jooq.tables.daos.TalkDao;
-import org.montpellierjug.store.jooq.tables.pojos.*;
+import org.montpellierjug.store.jooq.tables.interfaces.IEvent;
+import org.montpellierjug.store.jooq.tables.interfaces.ISpeaker;
+import org.montpellierjug.store.jooq.tables.pojos.Talk;
+import org.montpellierjug.store.jooq.tables.pojos.Yearpartner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,30 +36,27 @@ public class JugSupportImpl implements JugSupport {
     @Requires
     DSLContext dslContext;
     @Requires
-    EventpartnerDao eventpartnerDao;
-    @Requires
     SpeakerDao speakerDao;
     @Requires
     TalkDao talkDao;
 
     @Override
     public List<Cartridge> cartridges() {
-        return new ArrayList<Cartridge>(cartridges);
+        return new ArrayList<>(cartridges);
     }
 
-    public NextEvent getNextEvent() {
-        Event event = dslContext.select()
+    public Event getNextEvent() {
+        IEvent event = dslContext.select()
                 .from(org.montpellierjug.store.jooq.tables.Event.EVENT)
                 .orderBy(org.montpellierjug.store.jooq.tables.Event.EVENT.DATE.desc())
                 .limit(1)
                 .fetchOneInto(org.montpellierjug.store.jooq.tables.pojos.Event.class);
-        NextEvent nextEvent = null;
+        Event nextEvent = null;
         if(event != null) {
-            Eventpartner partner = eventpartnerDao.findById(event.getPartnerId());
-            List<Speaker> speakers = talkDao.fetchByEventId(event.getId()).stream().map((Talk talk) -> {
+            List<ISpeaker> speakers = talkDao.fetchByEventId(event.getId()).stream().map((Talk talk) -> {
                 return speakerDao.fetchOneById(talk.getSpeakerId());
             }).collect(Collectors.toList());
-            nextEvent = NextEvent.fromPojo(event, speakers, partner);
+            nextEvent = Event.build(event, speakers);
         }
         return nextEvent;
     }
