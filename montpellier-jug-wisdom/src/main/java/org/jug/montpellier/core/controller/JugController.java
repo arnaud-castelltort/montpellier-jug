@@ -1,9 +1,6 @@
 package org.jug.montpellier.core.controller;
 
-import org.jug.montpellier.core.api.CartridgeSupport;
 import org.jug.montpellier.core.api.JugSupport;
-import org.jug.montpellier.core.api.NextEventSupport;
-import org.jug.montpellier.core.api.PartnerSupport;
 import org.wisdom.api.DefaultController;
 import org.wisdom.api.http.Renderable;
 import org.wisdom.api.http.Result;
