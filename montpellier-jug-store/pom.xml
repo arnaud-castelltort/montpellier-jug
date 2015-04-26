@@ -15,7 +15,7 @@
 
 
   <properties>
-    <jooq.version>3.5.3</jooq.version>
+    <jooq.version>3.6.0</jooq.version>
   </properties>
 
   <dependencies>
