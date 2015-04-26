@@ -15,7 +15,7 @@
 
 
   <properties>
-    <jooq.version>3.5.3</jooq.version>
+    <jooq.version>3.6.0</jooq.version>
   </properties>
 
   <dependencies>
@@ -163,6 +163,19 @@
             </Import-Package>
           </instructions>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-ipojo-plugin</artifactId>
+        <version>${ipojo.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>ipojo-bundle</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>
