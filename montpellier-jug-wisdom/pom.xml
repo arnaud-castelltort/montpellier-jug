@@ -123,6 +123,11 @@
       <artifactId>documentation</artifactId>
       <version>${wisdom.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.wisdom-framework</groupId>
+      <artifactId>wisdom-raml-monitor-console</artifactId>
+      <version>${wisdom.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -154,6 +159,21 @@
           </execution>
         </executions>
       </plugin>
+<!--
+      <plugin>
+        <groupId>org.wisdom-framework</groupId>
+        <artifactId>wisdom-raml-maven-plugin</artifactId>
+        <version>${wisdom.version}</version>
+        <executions>
+          <execution>
+            <id>create-raml-spec</id>
+            <goals>
+              <goal>create-raml</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+-->
     </plugins>
   </build>
 

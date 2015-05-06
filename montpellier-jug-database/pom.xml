@@ -19,7 +19,7 @@
     <dependency>
       <groupId>org.flywaydb</groupId>
       <artifactId>flyway-core</artifactId>
-      <version>3.1</version>
+      <version>${flyway.version}</version>
     </dependency>
   </dependencies>
   <build>
@@ -27,7 +27,7 @@
       <plugin>
         <groupId>org.flywaydb</groupId>
         <artifactId>flyway-maven-plugin</artifactId>
-        <version>3.1</version>
+        <version>${flyway.version}</version>
         <configuration>
           <url>jdbc:postgresql:jugbuild</url>
           <user>jug</user>
@@ -62,7 +62,7 @@
           <instructions>
             <Fragment-Host>org.flywaydb.core</Fragment-Host>
             <Export-Package>db.migration;version=${project.version}</Export-Package>
-            <Import-Package>org.slf4j, org.flywaydb.core.api.migration.*</Import-Package>
+            <Import-Package>org.flywaydb.core.api.migration.*</Import-Package>
           </instructions>
         </configuration>
       </plugin>
@@ -76,7 +76,7 @@
           <plugin>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-maven-plugin</artifactId>
-            <version>3.1</version>
+            <version>${flyway.version}</version>
             <dependencies>
               <dependency>
                 <groupId>org.postgresql</groupId>
